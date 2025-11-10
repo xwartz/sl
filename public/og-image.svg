@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="profitGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.05" />
+    </linearGradient>
+    <linearGradient id="lossGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.05" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Grid pattern (subtle) -->
+  <g opacity="0.03">
+    <line x1="0" y1="126" x2="1200" y2="126" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="252" x2="1200" y2="252" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="378" x2="1200" y2="378" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="504" x2="1200" y2="504" stroke="#fff" stroke-width="1"/>
+    <line x1="240" y1="0" x2="240" y2="630" stroke="#fff" stroke-width="1"/>
+    <line x1="480" y1="0" x2="480" y2="630" stroke="#fff" stroke-width="1"/>
+    <line x1="720" y1="0" x2="720" y2="630" stroke="#fff" stroke-width="1"/>
+    <line x1="960" y1="0" x2="960" y2="630" stroke="#fff" stroke-width="1"/>
+  </g>
+
+  <!-- Main Chart Area -->
+  <g>
+    <!-- Profit Zone (above entry) -->
+    <path d="M 100 380 L 1100 380 L 1100 100 L 100 100 Z" fill="url(#profitGradient)"/>
+
+    <!-- Loss Zone (below entry) -->
+    <path d="M 100 380 L 1100 380 L 1100 550 L 100 550 Z" fill="url(#lossGradient)"/>
+
+    <!-- Price Levels -->
+    <!-- Take Profit Level (top - green) -->
+    <line x1="100" y1="140" x2="1100" y2="140" stroke="#10b981" stroke-width="3" stroke-dasharray="10 5"/>
+    <circle cx="1080" cy="140" r="8" fill="#10b981" filter="url(#glow)"/>
+
+    <!-- Entry Level (middle - blue) -->
+    <line x1="100" y1="380" x2="1100" y2="380" stroke="#3b82f6" stroke-width="4"/>
+    <circle cx="120" cy="380" r="10" fill="#3b82f6" filter="url(#glow)"/>
+    <circle cx="1080" cy="380" r="10" fill="#3b82f6" filter="url(#glow)"/>
+
+    <!-- Stop Loss Level (bottom - red) -->
+    <line x1="100" y1="480" x2="1100" y2="480" stroke="#ef4444" stroke-width="3" stroke-dasharray="10 5"/>
+    <circle cx="1080" cy="480" r="8" fill="#ef4444" filter="url(#glow)"/>
+
+    <!-- Liquidation Level (very bottom - dark red) -->
+    <line x1="100" y1="540" x2="1100" y2="540" stroke="#991b1b" stroke-width="2" stroke-dasharray="5 3" opacity="0.6"/>
+
+    <!-- Candlesticks -->
+    <!-- Candle 1 - Bear -->
+    <rect x="180" y="340" width="30" height="60" rx="3" fill="#ef4444"/>
+    <line x1="195" y1="310" x2="195" y2="410" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 2 - Bear -->
+    <rect x="260" y="360" width="30" height="50" rx="3" fill="#ef4444"/>
+    <line x1="275" y1="330" x2="275" y2="420" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 3 - Bull -->
+    <rect x="340" y="300" width="30" height="80" rx="3" fill="#10b981"/>
+    <line x1="355" y1="270" x2="355" y2="390" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Entry Arrow (big) -->
+    <g filter="url(#glow)">
+      <path d="M 400 380 L 480 380" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 470 365 L 490 380 L 470 395 Z" fill="#3b82f6"/>
+    </g>
+
+    <!-- Candle 4 - Small Bull -->
+    <rect x="520" y="350" width="30" height="50" rx="3" fill="#10b981"/>
+    <line x1="535" y1="330" x2="535" y2="410" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 5 - Bull -->
+    <rect x="600" y="310" width="30" height="70" rx="3" fill="#10b981"/>
+    <line x1="615" y1="280" x2="615" y2="390" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 6 - Large Bull -->
+    <rect x="680" y="250" width="30" height="130" rx="3" fill="#10b981"/>
+    <line x1="695" y1="220" x2="695" y2="390" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 7 - Bull -->
+    <rect x="760" y="200" width="30" height="180" rx="3" fill="#10b981"/>
+    <line x1="775" y1="170" x2="775" y2="390" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 8 - Small Bear (correction) -->
+    <rect x="840" y="180" width="30" height="40" rx="3" fill="#ef4444"/>
+    <line x1="855" y1="160" x2="855" y2="230" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 9 - Bull -->
+    <rect x="920" y="140" width="30" height="90" rx="3" fill="#10b981"/>
+    <line x1="935" y1="110" x2="935" y2="240" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Candle 10 - Large Bull -->
+    <rect x="1000" y="100" width="30" height="130" rx="3" fill="#10b981"/>
+    <line x1="1015" y1="70" x2="1015" y2="240" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left Panel - Position Info Icons -->
+  <g>
+    <!-- Leverage indicator (top left) -->
+    <rect x="40" y="50" width="100" height="80" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <text x="90" y="85" font-family="system-ui, -apple-system" font-size="32" font-weight="700" fill="#3b82f6" text-anchor="middle">10×</text>
+    <text x="90" y="110" font-family="system-ui, -apple-system" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">Leverage</text>
+
+    <!-- Direction indicator -->
+    <rect x="40" y="150" width="100" height="80" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <path d="M 65 200 L 90 175 L 115 200" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="90" y="220" font-family="system-ui, -apple-system" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">Long</text>
+
+    <!-- Risk/Reward indicator -->
+    <rect x="40" y="250" width="100" height="80" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <text x="90" y="285" font-family="system-ui, -apple-system" font-size="24" font-weight="700" fill="#f59e0b" text-anchor="middle">1:2</text>
+    <text x="90" y="310" font-family="system-ui, -apple-system" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">R/R</text>
+
+    <!-- Cross/Isolated -->
+    <rect x="40" y="350" width="100" height="80" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <circle cx="90" cy="380" r="15" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+    <path d="M 75 380 L 105 380 M 90 365 L 90 395" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+    <text x="90" y="410" font-family="system-ui, -apple-system" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">Cross</text>
+  </g>
+
+  <!-- Right Panel - Stats Display -->
+  <g>
+    <!-- Profit Display (top right) -->
+    <rect x="1040" y="100" width="120" height="50" rx="8" fill="#10b981" opacity="0.2"/>
+    <text x="1100" y="125" font-family="system-ui, -apple-system" font-size="20" font-weight="700" fill="#10b981" text-anchor="middle">+240%</text>
+
+    <!-- Entry marker (middle right) -->
+    <rect x="1040" y="350" width="120" height="60" rx="8" fill="#3b82f6" opacity="0.2"/>
+    <text x="1100" y="375" font-family="system-ui, -apple-system" font-size="16" font-weight="600" fill="#94a3b8" text-anchor="middle">Entry</text>
+    <text x="1100" y="395" font-family="system-ui, -apple-system" font-size="18" font-weight="700" fill="#3b82f6" text-anchor="middle">$100K</text>
+
+    <!-- Loss Display (bottom right) -->
+    <rect x="1040" y="450" width="120" height="50" rx="8" fill="#ef4444" opacity="0.2"/>
+    <text x="1100" y="480" font-family="system-ui, -apple-system" font-size="20" font-weight="700" fill="#ef4444" text-anchor="middle">-26%</text>
+  </g>
+
+  <!-- Connector lines (visual flow) -->
+  <g opacity="0.3">
+    <path d="M 140 90 L 1040 140" stroke="#10b981" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M 140 390 L 1040 380" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M 140 390 L 1040 480" stroke="#ef4444" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+</svg>

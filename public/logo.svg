@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="profitGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="16" y="16" width="224" height="224" rx="48" fill="url(#bgGrad)" stroke="#0f172a" stroke-width="6"/>
+
+  <!-- Chart Background -->
+  <rect x="40" y="80" width="176" height="136" rx="8" fill="#1e293b"/>
+
+  <!-- Profit zone -->
+  <path d="M 48 140 L 208 140 L 208 88 L 48 88 Z" fill="url(#profitGrad)"/>
+
+  <!-- Entry line (blue - horizontal) -->
+  <line x1="48" y1="140" x2="208" y2="140" stroke="#3b82f6" stroke-width="3"/>
+  <circle cx="60" cy="140" r="5" fill="#3b82f6"/>
+
+  <!-- Take Profit line (green - dashed) -->
+  <line x1="48" y1="100" x2="208" y2="100" stroke="#10b981" stroke-width="2" stroke-dasharray="6 3"/>
+  <circle cx="200" cy="100" r="4" fill="#10b981"/>
+
+  <!-- Stop Loss line (red - dashed) -->
+  <line x1="48" y1="180" x2="208" y2="180" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 3"/>
+  <circle cx="200" cy="180" r="4" fill="#ef4444"/>
+
+  <!-- Candlesticks -->
+  <!-- Bear candle -->
+  <rect x="68" y="135" width="12" height="25" rx="1" fill="#ef4444"/>
+  <line x1="74" y1="125" x2="74" y2="165" stroke="#ef4444" stroke-width="2"/>
+
+  <!-- Bull candle -->
+  <rect x="95" y="145" width="12" height="30" rx="1" fill="#10b981"/>
+  <line x1="101" y1="130" x2="101" y2="180" stroke="#10b981" stroke-width="2"/>
+
+  <!-- Entry arrow -->
+  <path d="M 115 140 L 135 140" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 130 135 L 138 140 L 130 145 Z" fill="#3b82f6"/>
+
+  <!-- Bull candle (after entry) -->
+  <rect x="145" y="125" width="12" height="35" rx="1" fill="#10b981"/>
+  <line x1="151" y1="115" x2="151" y2="165" stroke="#10b981" stroke-width="2"/>
+
+  <!-- Large bull candle -->
+  <rect x="170" y="105" width="12" height="55" rx="1" fill="#10b981"/>
+  <line x1="176" y1="95" x2="176" y2="165" stroke="#10b981" stroke-width="2"/>
+
+  <!-- Leverage Badge (top left) -->
+  <rect x="40" y="40" width="56" height="28" rx="8" fill="#3b82f6"/>
+  <text x="68" y="58" font-family="system-ui, -apple-system" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">10×</text>
+
+  <!-- Direction Badge (top right) -->
+  <rect x="160" y="40" width="56" height="28" rx="8" fill="#10b981"/>
+  <path d="M 176 55 L 188 46 L 200 55" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
