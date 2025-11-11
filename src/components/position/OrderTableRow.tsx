@@ -30,71 +30,80 @@ export default function OrderTableRow({
     <tr className="border-b border-border-var hover:bg-panel/50 transition-colors">
       {/* # 序号 */}
       <td className="px-4 py-3 text-sm text-text">{index + 1}</td>
-
       {/* 挂单价格 */}
       <td className="px-4 py-3">
         <input
           type="number"
-          value={order.price}
-          onChange={(e) =>
-            onUpdateOrder(order.id, { price: Number(e.target.value) })
-          }
+          defaultValue={order.price}
+          onBlur={(e) => {
+            const value = parseFloat(e.target.value) || 0
+            if (value !== order.price) {
+              onUpdateOrder(order.id, { price: value })
+            }
+          }}
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text"
           min="0"
+          step="0.01"
         />
       </td>
-
       {/* 购买数量 */}
       <td className="px-4 py-3">
         <input
           type="number"
-          value={order.quantity}
-          onChange={(e) =>
-            onUpdateOrder(order.id, { quantity: Number(e.target.value) })
-          }
+          defaultValue={order.quantity}
+          onBlur={(e) => {
+            const value = parseFloat(e.target.value) || 0
+            if (value !== order.quantity) {
+              onUpdateOrder(order.id, { quantity: value })
+            }
+          }}
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text"
           min="0"
-          step="0.0001"
+          step="0.01"
         />
       </td>
-
       {/* 止损价 */}
       <td className="px-4 py-3">
         <input
           type="number"
-          value={order.stopLoss || ""}
-          onChange={(e) =>
-            onUpdateOrder(order.id, {
-              stopLoss: e.target.value ? Number(e.target.value) : undefined,
-            })
-          }
+          defaultValue={order.stopLoss || ""}
+          onBlur={(e) => {
+            const value = e.target.value
+              ? parseFloat(e.target.value)
+              : undefined
+            if (value !== order.stopLoss) {
+              onUpdateOrder(order.id, { stopLoss: value })
+            }
+          }}
           placeholder="-"
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text placeholder:text-muted"
           min="0"
+          step="0.01"
         />
       </td>
-
       {/* 止盈价 */}
       <td className="px-4 py-3">
         <input
           type="number"
-          value={order.takeProfit || ""}
-          onChange={(e) =>
-            onUpdateOrder(order.id, {
-              takeProfit: e.target.value ? Number(e.target.value) : undefined,
-            })
-          }
+          defaultValue={order.takeProfit || ""}
+          onBlur={(e) => {
+            const value = e.target.value
+              ? parseFloat(e.target.value)
+              : undefined
+            if (value !== order.takeProfit) {
+              onUpdateOrder(order.id, { takeProfit: value })
+            }
+          }}
           placeholder="-"
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text placeholder:text-muted"
           min="0"
+          step="0.01"
         />
       </td>
-
       {/* 合约价值 */}
       <td className="px-4 py-3 text-sm text-text whitespace-nowrap font-semibold">
         ${formatCurrency(calculation.contractValue, 2)}
       </td>
-
       {/* 实际投入 (带 tooltip) */}
       <td className="px-4 py-3 text-sm text-text whitespace-nowrap">
         <span
@@ -102,22 +111,22 @@ export default function OrderTableRow({
           title={`${t("position.margin.label")}: $${formatCurrency(
             calculation.margin,
             2
-          )} + ${t("position.fee.label")}: $${formatCurrency(calculation.fee, 2)}`}
+          )} + ${t("position.fee.label")}: $${formatCurrency(
+            calculation.fee,
+            2
+          )}`}
         >
           ${formatCurrency(calculation.totalCost, 2)}
         </span>
       </td>
-
       {/* 累计投资 */}
       <td className="px-4 py-3 text-sm text-text whitespace-nowrap">
         ${formatCurrency(calculation.cumulativeInvestment, 2)}
       </td>
-
       {/* 平均价 */}
       <td className="px-4 py-3 text-sm text-text whitespace-nowrap">
         ${formatCurrency(calculation.averagePrice, 2)}
       </td>
-
       {/* 止损盈亏 */}
       <td
         className={`px-4 py-3 text-sm whitespace-nowrap font-medium ${
@@ -130,7 +139,6 @@ export default function OrderTableRow({
       >
         {order.stopLoss ? `$${formatCurrency(stopLossPnL, 2)}` : "-"}
       </td>
-
       {/* 止盈盈亏 */}
       <td
         className={`px-4 py-3 text-sm whitespace-nowrap font-medium ${
@@ -143,7 +151,6 @@ export default function OrderTableRow({
       >
         {order.takeProfit ? `$${formatCurrency(takeProfitPnL, 2)}` : "-"}
       </td>
-
       {/* 操作 */}
       <td className="px-4 py-3">
         <div className="flex items-center justify-center gap-2">

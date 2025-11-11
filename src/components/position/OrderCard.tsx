@@ -64,12 +64,16 @@ export default function OrderCard({
           </label>
           <input
             type="number"
-            value={order.price}
-            onChange={(e) =>
-              onUpdateOrder(order.id, { price: Number(e.target.value) })
-            }
+            defaultValue={order.price}
+            onBlur={(e) => {
+              const value = parseFloat(e.target.value) || 0
+              if (value !== order.price) {
+                onUpdateOrder(order.id, { price: value })
+              }
+            }}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
+            step="0.01"
           />
         </div>
         <div>
@@ -78,10 +82,13 @@ export default function OrderCard({
           </label>
           <input
             type="number"
-            value={order.quantity}
-            onChange={(e) =>
-              onUpdateOrder(order.id, { quantity: Number(e.target.value) })
-            }
+            defaultValue={order.quantity}
+            onBlur={(e) => {
+              const value = parseFloat(e.target.value) || 0
+              if (value !== order.quantity) {
+                onUpdateOrder(order.id, { quantity: value })
+              }
+            }}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
             step="0.0001"
@@ -93,15 +100,19 @@ export default function OrderCard({
           </label>
           <input
             type="number"
-            value={order.stopLoss || ""}
-            onChange={(e) =>
-              onUpdateOrder(order.id, {
-                stopLoss: e.target.value ? Number(e.target.value) : undefined,
-              })
-            }
+            defaultValue={order.stopLoss || ""}
+            onBlur={(e) => {
+              const value = e.target.value
+                ? parseFloat(e.target.value)
+                : undefined
+              if (value !== order.stopLoss) {
+                onUpdateOrder(order.id, { stopLoss: value })
+              }
+            }}
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"
             min="0"
+            step="0.01"
           />
         </div>
         <div>
@@ -110,15 +121,19 @@ export default function OrderCard({
           </label>
           <input
             type="number"
-            value={order.takeProfit || ""}
-            onChange={(e) =>
-              onUpdateOrder(order.id, {
-                takeProfit: e.target.value ? Number(e.target.value) : undefined,
-              })
-            }
+            defaultValue={order.takeProfit || ""}
+            onBlur={(e) => {
+              const value = e.target.value
+                ? parseFloat(e.target.value)
+                : undefined
+              if (value !== order.takeProfit) {
+                onUpdateOrder(order.id, { takeProfit: value })
+              }
+            }}
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"
             min="0"
+            step="0.01"
           />
         </div>
       </div>
@@ -128,7 +143,9 @@ export default function OrderCard({
         {/* 重要指标 */}
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div className="flex justify-between">
-            <span className="text-muted">{t("position.contract.value.short")}</span>
+            <span className="text-muted">
+              {t("position.contract.value.short")}
+            </span>
             <span className="font-bold text-text">
               ${formatCurrency(calculation.contractValue, 2)}
             </span>
@@ -140,13 +157,17 @@ export default function OrderCard({
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted">{t("position.cumulative.investment.short")}</span>
+            <span className="text-muted">
+              {t("position.cumulative.investment.short")}
+            </span>
             <span className="font-medium text-text">
               ${formatCurrency(calculation.cumulativeInvestment, 2)}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted">{t("position.average.price.short")}</span>
+            <span className="text-muted">
+              {t("position.average.price.short")}
+            </span>
             <span className="font-medium text-text">
               ${formatCurrency(calculation.averagePrice, 2)}
             </span>
@@ -156,8 +177,13 @@ export default function OrderCard({
         {/* 费用明细 (折叠显示) */}
         <div className="text-xs text-muted pt-2 border-t border-border-var/50">
           <div className="flex justify-between">
-            <span>{t("position.margin.label")}: ${formatCurrency(calculation.margin, 2)}</span>
-            <span>{t("position.fee.label")}: ${formatCurrency(calculation.fee, 2)}</span>
+            <span>
+              {t("position.margin.label")}: $
+              {formatCurrency(calculation.margin, 2)}
+            </span>
+            <span>
+              {t("position.fee.label")}: ${formatCurrency(calculation.fee, 2)}
+            </span>
           </div>
         </div>
 
@@ -166,7 +192,9 @@ export default function OrderCard({
           <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-border-var">
             {order.stopLoss && (
               <div className="flex justify-between">
-                <span className="text-muted">{t("position.stop.loss.pnl")}</span>
+                <span className="text-muted">
+                  {t("position.stop.loss.pnl")}
+                </span>
                 <span
                   className={`font-bold ${
                     stopLossPnL < 0
@@ -182,7 +210,9 @@ export default function OrderCard({
             )}
             {order.takeProfit && (
               <div className="flex justify-between">
-                <span className="text-muted">{t("position.take.profit.pnl")}</span>
+                <span className="text-muted">
+                  {t("position.take.profit.pnl")}
+                </span>
                 <span
                   className={`font-bold ${
                     takeProfitPnL > 0

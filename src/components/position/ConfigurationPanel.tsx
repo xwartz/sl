@@ -85,12 +85,16 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[180px]">
             <input
               type="number"
-              value={config.totalCapital}
-              onChange={(e) =>
-                onConfigChange({ totalCapital: Number(e.target.value) })
-              }
+              defaultValue={config.totalCapital}
+              onBlur={(e) => {
+                const value = parseFloat(e.target.value) || 0
+                if (value !== config.totalCapital) {
+                  onConfigChange({ totalCapital: value })
+                }
+              }}
               className="w-full px-3 py-2 rounded-lg bg-panel border-2 border-accent/20 text-text text-base font-bold focus:border-accent"
               min="0"
+              step="1"
             />
           </div>
         </div>
@@ -103,13 +107,17 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[120px]">
             <input
               type="number"
-              value={config.leverage}
-              onChange={(e) =>
-                onConfigChange({ leverage: Number(e.target.value) })
-              }
+              defaultValue={config.leverage}
+              onBlur={(e) => {
+                const value = parseInt(e.target.value) || 1
+                if (value !== config.leverage) {
+                  onConfigChange({ leverage: value })
+                }
+              }}
               className="w-full px-3 py-2 rounded-lg bg-panel border border-border-var text-text text-base font-semibold"
               min="1"
               max="125"
+              step="1"
             />
           </div>
         </div>
@@ -122,10 +130,13 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[120px]">
             <input
               type="number"
-              value={config.feeRate}
-              onChange={(e) =>
-                onConfigChange({ feeRate: Number(e.target.value) })
-              }
+              defaultValue={config.feeRate}
+              onBlur={(e) => {
+                const value = parseFloat(e.target.value) || 0
+                if (value !== config.feeRate) {
+                  onConfigChange({ feeRate: value })
+                }
+              }}
               className="w-full px-3 py-2 rounded-lg bg-panel border border-border-var text-text text-base font-semibold"
               step="0.01"
               min="0"

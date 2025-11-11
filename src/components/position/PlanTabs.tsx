@@ -64,22 +64,24 @@ export default function PlanTabs({
                   {plan.name}
                 </button>
                 {activePlanId === plan.id && (
-                  <button
-                    onClick={() => onStartEditingPlan(plan.id, plan.name)}
-                    className="p-1.5 hover:bg-panel rounded transition-colors opacity-0 group-hover:opacity-100"
-                    title={t("position.rename")}
-                  >
-                    <Pencil size={14} className="text-muted" />
-                  </button>
-                )}
-                {plans.length > 1 && (
-                  <button
-                    onClick={() => onDeletePlan(plan.id)}
-                    className="p-1.5 hover:bg-danger/10 rounded transition-colors opacity-0 group-hover:opacity-100"
-                    title={t("position.delete")}
-                  >
-                    <Trash2 size={14} className="text-danger" />
-                  </button>
+                  <>
+                    <button
+                      onClick={() => onStartEditingPlan(plan.id, plan.name)}
+                      className="p-1.5 hover:bg-panel rounded transition-colors"
+                      title={t("position.rename")}
+                    >
+                      <Pencil size={14} className="text-muted" />
+                    </button>
+                    {plans.length > 1 && (
+                      <button
+                        onClick={() => onDeletePlan(plan.id)}
+                        className="p-1.5 hover:bg-danger/10 rounded transition-colors"
+                        title={t("position.delete")}
+                      >
+                        <Trash2 size={14} className="text-danger" />
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
             )}
