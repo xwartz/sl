@@ -13,6 +13,7 @@ interface SummaryPanelProps {
   totalStopLossPnL: number
   totalTakeProfitPnL: number
   stopLossRatio: number
+  riskRewardRatio: number
 }
 
 export default function SummaryPanel({
@@ -21,6 +22,7 @@ export default function SummaryPanel({
   totalStopLossPnL,
   totalTakeProfitPnL,
   stopLossRatio,
+  riskRewardRatio,
 }: SummaryPanelProps) {
   const { t } = useI18n()
 
@@ -160,7 +162,7 @@ export default function SummaryPanel({
         totalStopLossPnL={totalStopLossPnL}
         totalTakeProfitPnL={totalTakeProfitPnL}
         stopLossRatio={stopLossRatio}
-        riskRewardRatio={summary.riskRewardRatio}
+        riskRewardRatio={riskRewardRatio}
       />
     </div>
   )

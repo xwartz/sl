@@ -126,6 +126,12 @@ export default function PositionCalculator() {
       ? Math.abs((totalStopLossPnL / activePlan.config.totalCapital) * 100)
       : 0
 
+  // 计算真实的盈亏比（基于所有订单的实际止损止盈总和）
+  const actualRiskRewardRatio =
+    Math.abs(totalStopLossPnL) > 0
+      ? Math.abs(totalTakeProfitPnL) / Math.abs(totalStopLossPnL)
+      : 0
+
   return (
     <div className="min-h-screen bg-app-bg">
       <div className="container mx-auto max-w-[1600px] px-4 py-8">
@@ -168,6 +174,7 @@ export default function PositionCalculator() {
           totalStopLossPnL={totalStopLossPnL}
           totalTakeProfitPnL={totalTakeProfitPnL}
           stopLossRatio={stopLossRatio}
+          riskRewardRatio={actualRiskRewardRatio}
         />
       </div>
     </div>
