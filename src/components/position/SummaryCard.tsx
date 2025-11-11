@@ -1,5 +1,3 @@
-import { formatCurrency } from '../../lib/position-calculator'
-
 interface SummaryItem {
   label: string
   value: string
@@ -31,7 +29,11 @@ export default function SummaryCard({
         {items.map((item, index) => (
           <div key={index} className="flex justify-between items-baseline">
             <span className="text-xs text-muted">{item.label}</span>
-            <span className={item.valueClassName || "text-lg font-semibold text-text"}>
+            <span
+              className={
+                item.valueClassName || "text-lg font-semibold text-text"
+              }
+            >
               {item.value}
             </span>
           </div>
@@ -45,4 +47,3 @@ export default function SummaryCard({
     </div>
   )
 }
-
