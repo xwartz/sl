@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import PositionCalculator from "./components/PositionCalculator"
 import ThemeToggle from "./components/ThemeToggle"
 import LanguageToggle from "./components/LanguageToggle"
+import ShareButton from "./components/ShareButton"
+import ImportNotification from "./components/ImportNotification"
 import { Calculator } from "lucide-react"
 import { useI18n } from "./lib/i18n"
 
@@ -11,6 +13,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen app-root">
+        {/* Import Notification */}
+        <ImportNotification />
+
         {/* Header */}
         <header className="sticky top-0 z-50 border-b border-border-var bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
           <div className="container mx-auto max-w-[1600px] px-4">
@@ -25,6 +30,7 @@ function App() {
 
               {/* Controls */}
               <div className="flex items-center gap-2">
+                <ShareButton />
                 <LanguageToggle />
                 <ThemeToggle />
               </div>

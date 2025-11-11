@@ -239,7 +239,7 @@ body {
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     transform: translateY(-1px);
   }
-  
+
   .btn-primary:disabled {
     cursor: not-allowed;
     opacity: 0.6;
@@ -270,7 +270,7 @@ select {
   border: 1px solid var(--border);
   transition: all 150ms ease-out;
   }
-  
+
   input[type="text"]:hover,
   input[type="date"]:hover,
   input[type="number"]:hover,
@@ -344,6 +344,17 @@ input[type="checkbox"] {
   }
 }
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 .animate-in {
   animation-fill-mode: both;
 }
@@ -360,6 +371,9 @@ input[type="checkbox"] {
   animation-name: scale-in;
 }
 
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
 .duration-200 {
   animation-duration: 200ms;
 }

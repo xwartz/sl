@@ -86,4 +86,13 @@ export const en = {
   "position.summary.pnl.take.profit": "Profit",
   "position.summary.pnl.risk.reward": "R/R",
   "position.summary.pnl.stop.loss.ratio": "Loss %",
+
+  // Share & Import
+  "share.button": "Share",
+  "share.tooltip": "Share all plans via link",
+  "share.copied": "Copied!",
+  "share.error": "Failed",
+  "import.success": "Data imported successfully",
+  "import.error": "Failed to import data",
+  "import.suffix": "(Imported)",
 }

@@ -86,4 +86,13 @@ export const zh = {
   "position.summary.pnl.take.profit": "止盈",
   "position.summary.pnl.risk.reward": "盈亏比",
   "position.summary.pnl.stop.loss.ratio": "止损比",
+
+  // Share & Import
+  "share.button": "分享",
+  "share.tooltip": "通过链接分享所有计划",
+  "share.copied": "已复制！",
+  "share.error": "失败",
+  "import.success": "导入成功",
+  "import.error": "导入失败",
+  "import.suffix": "(导入)",
 }

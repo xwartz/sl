@@ -15,10 +15,12 @@ interface PositionStore {
   plans: PlanTab[]
   editingPlanId: string | null
   editingPlanName: string
+  _hasHydrated: boolean
 
   // Actions
   setActivePlanId: (id: string) => void
   setPlans: (plans: PlanTab[]) => void
+  setHasHydrated: (state: boolean) => void
 
   // 编辑计划名称
   startEditingPlan: (planId: string, currentName: string) => void
@@ -33,7 +35,11 @@ interface PositionStore {
 
   // 订单操作
   addOrder: (planId: string, order: OrderEntry) => void
-  updateOrder: (planId: string, orderId: string, updates: Partial<OrderEntry>) => void
+  updateOrder: (
+    planId: string,
+    orderId: string,
+    updates: Partial<OrderEntry>
+  ) => void
   deleteOrder: (planId: string, orderId: string) => void
   duplicateOrder: (planId: string, orderId: string) => void
 }
@@ -59,11 +65,14 @@ export const usePositionStore = create<PositionStore>()(
       ],
       editingPlanId: null,
       editingPlanName: "",
+      _hasHydrated: false,
 
       // Actions
       setActivePlanId: (id) => set({ activePlanId: id }),
 
       setPlans: (plans) => set({ plans }),
+
+      setHasHydrated: (state) => set({ _hasHydrated: state }),
 
       // 编辑计划名称
       startEditingPlan: (planId, currentName) =>
@@ -175,6 +184,9 @@ export const usePositionStore = create<PositionStore>()(
     {
       name: "position-calculator-storage", // localStorage key
       version: 1, // 版本号，用于迁移
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true)
+      },
     }
   )
 )
