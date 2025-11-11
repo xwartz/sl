@@ -1,6 +1,9 @@
 import { useI18n } from '../../lib/i18n'
 import { formatCurrency } from '../../lib/position-calculator'
-import type { PositionSummary, PositionConfig } from '../../lib/position-calculator'
+import type {
+  PositionSummary,
+  PositionConfig,
+} from '../../lib/position-calculator'
 import SummaryCard from './SummaryCard'
 import PnLAnalysis from './PnLAnalysis'
 
@@ -23,68 +26,68 @@ export default function SummaryPanel({
 
   const capitalStatusItems = [
     {
-      label: t("position.summary.capital.total"),
+      label: t('position.summary.capital.total'),
       value: `$${formatCurrency(summary.totalCapital, 2)}`,
-      valueClassName: "text-lg font-bold text-accent",
+      valueClassName: 'text-lg font-bold text-accent',
     },
     {
-      label: t("position.summary.capital.invested"),
+      label: t('position.summary.capital.invested'),
       value: `$${formatCurrency(summary.totalInvestment, 2)}`,
       valueClassName: `text-lg font-semibold ${
-        summary.isOverCapital ? "text-danger" : "text-text"
+        summary.isOverCapital ? 'text-danger' : 'text-text'
       }`,
     },
     {
-      label: t("position.summary.capital.remaining"),
+      label: t('position.summary.capital.remaining'),
       value: `$${formatCurrency(summary.remainingCapital, 2)}`,
       valueClassName: `text-lg font-semibold ${
-        summary.remainingCapital < 0 ? "text-danger" : "text-success"
+        summary.remainingCapital < 0 ? 'text-danger' : 'text-success'
       }`,
     },
   ]
 
   const positionInfoItems = [
     {
-      label: t("position.summary.position.avg.price"),
+      label: t('position.summary.position.avg.price'),
       value: `$${formatCurrency(summary.averagePrice, 2)}`,
-      valueClassName: "text-lg font-semibold text-text",
+      valueClassName: 'text-lg font-semibold text-text',
     },
     {
-      label: t("position.summary.position.total"),
+      label: t('position.summary.position.total'),
       value: formatCurrency(summary.totalQuantity, 4),
-      valueClassName: "text-lg font-semibold text-text",
+      valueClassName: 'text-lg font-semibold text-text',
     },
     {
-      label: t("position.summary.position.contract.value"),
+      label: t('position.summary.position.contract.value'),
       value: `$${formatCurrency(summary.totalContractValue, 2)}`,
-      valueClassName: "text-lg font-semibold text-text",
+      valueClassName: 'text-lg font-semibold text-text',
     },
   ]
 
   const riskIndicatorsItems = [
     {
-      label: t("position.summary.risk.liquidation"),
+      label: t('position.summary.risk.liquidation'),
       value: `$${formatCurrency(summary.liquidationPrice, 2)}`,
-      valueClassName: "text-lg font-bold text-danger",
+      valueClassName: 'text-lg font-bold text-danger',
     },
     {
-      label: t("position.summary.risk.real.leverage"),
+      label: t('position.summary.risk.real.leverage'),
       value: `${formatCurrency(summary.realLeverage, 2)}x`,
       valueClassName: `text-lg font-semibold ${
-        summary.realLeverage > config.leverage ? "text-danger" : "text-text"
+        summary.realLeverage > config.leverage ? 'text-danger' : 'text-text'
       }`,
     },
     {
-      label: t("position.summary.risk.effective.leverage"),
+      label: t('position.summary.risk.effective.leverage'),
       value: `${formatCurrency(summary.effectiveLeverage, 2)}x`,
-      valueClassName: "text-lg font-semibold text-muted",
+      valueClassName: 'text-lg font-semibold text-muted',
     },
   ]
 
   return (
     <div className="bg-card border border-border-var rounded-xl p-6 shadow-sm">
       <h2 className="text-lg font-semibold text-text mb-6">
-        {t("position.summary")}
+        {t('position.summary')}
       </h2>
 
       {/* 核心指标 - 3大卡片 */}
@@ -92,25 +95,25 @@ export default function SummaryPanel({
         {/* 资金状况 */}
         <SummaryCard
           icon="💰"
-          title={t("position.summary.capital.status")}
+          title={t('position.summary.capital.status')}
           items={[
             ...capitalStatusItems,
             {
-              label: t("position.summary.capital.utilization"),
+              label: t('position.summary.capital.utilization'),
               value: `${formatCurrency(summary.capitalUtilization, 1)}%`,
-              valueClassName: "text-sm font-medium text-text",
+              valueClassName: 'text-sm font-medium text-text',
             },
           ]}
           warning={{
             show: summary.isOverCapital,
-            message: t("position.over.capital"),
+            message: t('position.over.capital'),
           }}
         />
 
         {/* 持仓信息 */}
         <div className="bg-gradient-to-br from-panel to-panel/50 rounded-xl p-5 border border-border-var">
           <div className="text-sm font-medium text-muted mb-4">
-            📊 {t("position.summary.position.info")}
+            📊 {t('position.summary.position.info')}
           </div>
           <div className="space-y-3">
             {positionInfoItems.map((item, index) => (
@@ -122,7 +125,7 @@ export default function SummaryPanel({
             <div className="pt-2 border-t border-border-var">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-muted">
-                  {t("position.summary.position.margin")}
+                  {t('position.summary.position.margin')}
                 </span>
                 <span className="text-sm font-medium text-text">
                   ${formatCurrency(summary.totalMargin, 2)}
@@ -130,7 +133,7 @@ export default function SummaryPanel({
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-muted">
-                  {t("position.summary.position.fees")}
+                  {t('position.summary.position.fees')}
                 </span>
                 <span className="text-sm font-medium text-warning">
                   ${formatCurrency(summary.totalFees, 2)}
@@ -143,11 +146,11 @@ export default function SummaryPanel({
         {/* 风险指标 */}
         <SummaryCard
           icon="⚠️"
-          title={t("position.summary.risk.indicators")}
+          title={t('position.summary.risk.indicators')}
           items={riskIndicatorsItems}
           warning={{
             show: summary.realLeverage > config.leverage,
-            message: t("position.over.leverage"),
+            message: t('position.over.leverage'),
           }}
         />
       </div>
@@ -162,4 +165,3 @@ export default function SummaryPanel({
     </div>
   )
 }
-

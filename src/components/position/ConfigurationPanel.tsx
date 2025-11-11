@@ -15,35 +15,35 @@ export default function ConfigurationPanel({
   return (
     <div className="bg-card border border-border-var rounded-xl p-6 mb-6 shadow-sm">
       <h2 className="text-lg font-semibold text-text mb-4">
-        {t("position.config")}
+        {t('position.config')}
       </h2>
 
       <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
         {/* 方向 */}
         <div className="w-full sm:w-auto sm:min-w-[200px]">
           <label className="block text-sm font-medium text-text mb-2">
-            {t("position.direction")}
+            {t('position.direction')}
           </label>
           <div className="flex gap-2">
             <button
-              onClick={() => onConfigChange({ direction: "long" })}
+              onClick={() => onConfigChange({ direction: 'long' })}
               className={`flex-1 sm:w-[95px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                config.direction === "long"
-                  ? "bg-success text-white shadow-sm"
-                  : "bg-panel text-muted border border-border-var hover:border-success hover:bg-success/10"
+                config.direction === 'long'
+                  ? 'bg-success text-white shadow-sm'
+                  : 'bg-panel text-muted border border-border-var hover:border-success hover:bg-success/10'
               }`}
             >
-              {t("position.long")}
+              {t('position.long')}
             </button>
             <button
-              onClick={() => onConfigChange({ direction: "short" })}
+              onClick={() => onConfigChange({ direction: 'short' })}
               className={`flex-1 sm:w-[95px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                config.direction === "short"
-                  ? "bg-danger text-white shadow-sm"
-                  : "bg-panel text-muted border border-border-var hover:border-danger hover:bg-danger/10"
+                config.direction === 'short'
+                  ? 'bg-danger text-white shadow-sm'
+                  : 'bg-panel text-muted border border-border-var hover:border-danger hover:bg-danger/10'
               }`}
             >
-              {t("position.short")}
+              {t('position.short')}
             </button>
           </div>
         </div>
@@ -51,28 +51,28 @@ export default function ConfigurationPanel({
         {/* 保证金模式 */}
         <div className="w-full sm:w-auto sm:min-w-[200px]">
           <label className="block text-sm font-medium text-text mb-2">
-            {t("position.margin.mode")}
+            {t('position.margin.mode')}
           </label>
           <div className="flex gap-2">
             <button
-              onClick={() => onConfigChange({ marginMode: "cross" })}
+              onClick={() => onConfigChange({ marginMode: 'cross' })}
               className={`flex-1 sm:w-[95px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                config.marginMode === "cross"
-                  ? "bg-accent text-white shadow-sm"
-                  : "bg-panel text-muted border border-border-var hover:border-accent hover:bg-accent/10"
+                config.marginMode === 'cross'
+                  ? 'bg-accent text-white shadow-sm'
+                  : 'bg-panel text-muted border border-border-var hover:border-accent hover:bg-accent/10'
               }`}
             >
-              {t("position.cross")}
+              {t('position.cross')}
             </button>
             <button
-              onClick={() => onConfigChange({ marginMode: "isolated" })}
+              onClick={() => onConfigChange({ marginMode: 'isolated' })}
               className={`flex-1 sm:w-[95px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                config.marginMode === "isolated"
-                  ? "bg-accent text-white shadow-sm"
-                  : "bg-panel text-muted border border-border-var hover:border-accent hover:bg-accent/10"
+                config.marginMode === 'isolated'
+                  ? 'bg-accent text-white shadow-sm'
+                  : 'bg-panel text-muted border border-border-var hover:border-accent hover:bg-accent/10'
               }`}
             >
-              {t("position.isolated")}
+              {t('position.isolated')}
             </button>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function ConfigurationPanel({
         {/* 总本金 */}
         <div className="w-full sm:w-auto">
           <label className="block text-sm font-medium text-text mb-2">
-            $ {t("position.total.capital")}
+            $ {t('position.total.capital')}
           </label>
           <div className="relative w-full sm:w-[180px]">
             <input
@@ -102,7 +102,7 @@ export default function ConfigurationPanel({
         {/* 杠杆倍数 */}
         <div className="w-full sm:w-auto">
           <label className="block text-sm font-medium text-text mb-2">
-            x {t("position.leverage")}
+            x {t('position.leverage')}
           </label>
           <div className="relative w-full sm:w-[120px]">
             <input
@@ -125,7 +125,7 @@ export default function ConfigurationPanel({
         {/* 费率 */}
         <div className="w-full sm:w-auto">
           <label className="block text-sm font-medium text-text mb-2">
-            % {t("position.fee.rate")}
+            % {t('position.fee.rate')}
           </label>
           <div className="relative w-full sm:w-[120px]">
             <input
@@ -147,4 +147,3 @@ export default function ConfigurationPanel({
     </div>
   )
 }
-

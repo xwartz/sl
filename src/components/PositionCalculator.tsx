@@ -1,15 +1,15 @@
-import { useI18n } from "../lib/i18n"
+import { useI18n } from '../lib/i18n'
 import {
   type OrderEntry,
   calculateOrder,
   calculatePositionSummary,
   calculateOrderProfitLoss,
-} from "../lib/position-calculator"
-import { usePositionStore, type PlanTab } from "../store/position-store"
-import PlanTabs from "./position/PlanTabs"
-import ConfigurationPanel from "./position/ConfigurationPanel"
-import OrderList from "./position/OrderList"
-import SummaryPanel from "./position/SummaryPanel"
+} from '../lib/position-calculator'
+import { usePositionStore, type PlanTab } from '../store/position-store'
+import PlanTabs from './position/PlanTabs'
+import ConfigurationPanel from './position/ConfigurationPanel'
+import OrderList from './position/OrderList'
+import SummaryPanel from './position/SummaryPanel'
 
 export default function PositionCalculator() {
   const { t } = useI18n()
@@ -40,15 +40,15 @@ export default function PositionCalculator() {
   const handleAddPlan = () => {
     const newPlan: PlanTab = {
       id: Date.now().toString(),
-      name: `${t("position.new.plan")} ${plans.length + 1}`,
+      name: `${t('position.new.plan')} ${plans.length + 1}`,
       config: {
-        direction: "long",
+        direction: 'long',
         leverage: 10,
         feeRate: 0.05,
         totalCapital: 10000,
-        marginMode: "cross",
+        marginMode: 'cross',
       },
-      orders: [{ id: "1", price: 100000, quantity: 0.1 }],
+      orders: [{ id: '1', price: 100000, quantity: 0.1 }],
     }
     addPlan(newPlan)
   }

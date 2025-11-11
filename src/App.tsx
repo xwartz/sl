@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import PositionCalculator from "./components/PositionCalculator"
-import ThemeToggle from "./components/ThemeToggle"
-import LanguageToggle from "./components/LanguageToggle"
-import ShareButton from "./components/ShareButton"
-import ImportNotification from "./components/ImportNotification"
-import { Calculator } from "lucide-react"
-import { useI18n } from "./lib/i18n"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import PositionCalculator from './components/PositionCalculator'
+import ThemeToggle from './components/ThemeToggle'
+import LanguageToggle from './components/LanguageToggle'
+import ShareButton from './components/ShareButton'
+import ImportNotification from './components/ImportNotification'
+import { Calculator } from 'lucide-react'
+import { useI18n } from './lib/i18n'
 
 function App() {
   const { t } = useI18n()
@@ -24,7 +24,7 @@ function App() {
               <div className="flex items-center gap-3">
                 <Calculator size={20} className="text-text" />
                 <h1 className="text-lg font-semibold tracking-tight text-text">
-                  {t("position.title")}
+                  {t('position.title')}
                 </h1>
               </div>
 

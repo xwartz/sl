@@ -43,8 +43,8 @@ export default function PlanTabs({
                   value={editingPlanName}
                   onChange={(e) => onEditingPlanNameChange(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") onFinishEditingPlan()
-                    if (e.key === "Escape") onCancelEditingPlan()
+                    if (e.key === 'Enter') onFinishEditingPlan()
+                    if (e.key === 'Escape') onCancelEditingPlan()
                   }}
                   onBlur={onFinishEditingPlan}
                   className="w-32 px-2 py-1 text-sm bg-panel border border-border-var rounded text-text focus:outline-none focus:border-accent"
@@ -57,8 +57,8 @@ export default function PlanTabs({
                   onClick={() => onActivePlanChange(plan.id)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap ${
                     activePlanId === plan.id
-                      ? "bg-card shadow-sm text-text"
-                      : "text-muted hover:text-text"
+                      ? 'bg-card shadow-sm text-text'
+                      : 'text-muted hover:text-text'
                   }`}
                 >
                   {plan.name}
@@ -68,7 +68,7 @@ export default function PlanTabs({
                     <button
                       onClick={() => onStartEditingPlan(plan.id, plan.name)}
                       className="p-1.5 hover:bg-panel rounded transition-colors"
-                      title={t("position.rename")}
+                      title={t('position.rename')}
                     >
                       <Pencil size={14} className="text-muted" />
                     </button>
@@ -76,7 +76,7 @@ export default function PlanTabs({
                       <button
                         onClick={() => onDeletePlan(plan.id)}
                         className="p-1.5 hover:bg-danger/10 rounded transition-colors"
-                        title={t("position.delete")}
+                        title={t('position.delete')}
                       >
                         <Trash2 size={14} className="text-danger" />
                       </button>
@@ -92,9 +92,8 @@ export default function PlanTabs({
         onClick={onAddPlan}
         className="px-4 py-2 border border-border-var rounded-lg hover:bg-panel transition-colors text-sm text-muted hover:text-text"
       >
-        + {t("position.new.tab")}
+        + {t('position.new.tab')}
       </button>
     </div>
   )
 }
-

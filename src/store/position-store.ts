@@ -48,23 +48,23 @@ export const usePositionStore = create<PositionStore>()(
   persist(
     (set, get) => ({
       // 初始状态
-      activePlanId: "default",
+      activePlanId: 'default',
       plans: [
         {
-          id: "default",
-          name: "BTC Long Plan",
+          id: 'default',
+          name: 'BTC Long Plan',
           config: {
-            direction: "long",
+            direction: 'long',
             leverage: 10,
             feeRate: 0.05,
             totalCapital: 10000,
-            marginMode: "cross", // 默认全仓模式
+            marginMode: 'cross', // 默认全仓模式
           },
-          orders: [{ id: "1", price: 100000, quantity: 0.1 }],
+          orders: [{ id: '1', price: 100000, quantity: 0.1 }],
         },
       ],
       editingPlanId: null,
-      editingPlanName: "",
+      editingPlanName: '',
       _hasHydrated: false,
 
       // Actions
@@ -88,15 +88,15 @@ export const usePositionStore = create<PositionStore>()(
                 : p
             ),
             editingPlanId: null,
-            editingPlanName: "",
+            editingPlanName: '',
           })
         } else {
-          set({ editingPlanId: null, editingPlanName: "" })
+          set({ editingPlanId: null, editingPlanName: '' })
         }
       },
 
       cancelEditingPlan: () =>
-        set({ editingPlanId: null, editingPlanName: "" }),
+        set({ editingPlanId: null, editingPlanName: '' }),
 
       setEditingPlanName: (name) => set({ editingPlanName: name }),
 
@@ -182,7 +182,7 @@ export const usePositionStore = create<PositionStore>()(
       },
     }),
     {
-      name: "position-calculator-storage", // localStorage key
+      name: 'position-calculator-storage', // localStorage key
       version: 1, // 版本号，用于迁移
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true)
@@ -190,4 +190,3 @@ export const usePositionStore = create<PositionStore>()(
     }
   )
 )
-

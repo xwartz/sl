@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import { usePositionStore, type PlanTab } from "../store/position-store"
-import { useI18n } from "../lib/i18n"
+import { useEffect, useState } from 'react'
+import { usePositionStore, type PlanTab } from '../store/position-store'
+import { useI18n } from '../lib/i18n'
 
 interface ImportResult {
-  status: "idle" | "success" | "error"
+  status: 'idle' | 'success' | 'error'
   message?: string
 }
 
@@ -15,7 +15,7 @@ interface ShareData {
 
 export function useImportFromUrl() {
   const [importResult, setImportResult] = useState<ImportResult>({
-    status: "idle",
+    status: 'idle',
   })
   const hasHydrated = usePositionStore((state) => state._hasHydrated)
   const store = usePositionStore()
@@ -29,7 +29,7 @@ export function useImportFromUrl() {
 
     // 检查 URL 中是否有数据参数
     const urlParams = new URLSearchParams(window.location.search)
-    const dataParam = urlParams.get("data")
+    const dataParam = urlParams.get('data')
 
     if (!dataParam) {
       return
@@ -42,7 +42,7 @@ export function useImportFromUrl() {
 
       // 验证数据格式
       if (!shareData.plans || !Array.isArray(shareData.plans)) {
-        throw new Error("Invalid data format")
+        throw new Error('Invalid data format')
       }
 
       // 获取当前最新的 plans
@@ -68,7 +68,7 @@ export function useImportFromUrl() {
             const newPlan: PlanTab = {
               ...sharedPlan,
               id: `${sharedPlan.id}-imported-${Date.now()}`,
-              name: `${sharedPlan.name} ${t("import.suffix")}`,
+              name: `${sharedPlan.name} ${t('import.suffix')}`,
             }
             plansToImport.push(newPlan)
           }
@@ -80,38 +80,37 @@ export function useImportFromUrl() {
         // 如果有新导入的计划，切换到第一个
         store.setActivePlanId(plansToImport[0].id)
         setImportResult({
-          status: "success",
+          status: 'success',
           message: `Imported ${plansToImport.length} plan(s)`,
         })
       } else {
         setImportResult({
-          status: "success",
-          message: "All plans already exist",
+          status: 'success',
+          message: 'All plans already exist',
         })
       }
 
       // 清除 URL 参数（不刷新页面）
-      urlParams.delete("data")
+      urlParams.delete('data')
       const newUrl = urlParams.toString()
         ? `${window.location.pathname}?${urlParams.toString()}`
         : window.location.pathname
-      window.history.replaceState({}, "", newUrl)
+      window.history.replaceState({}, '', newUrl)
     } catch (error) {
-      console.error("Failed to import from URL:", error)
+      console.error('Failed to import from URL:', error)
       setImportResult({
-        status: "error",
-        message: error instanceof Error ? error.message : "Import failed",
+        status: 'error',
+        message: error instanceof Error ? error.message : 'Import failed',
       })
 
       // 清除无效的 URL 参数
-      urlParams.delete("data")
+      urlParams.delete('data')
       const newUrl = urlParams.toString()
         ? `${window.location.pathname}?${urlParams.toString()}`
         : window.location.pathname
-      window.history.replaceState({}, "", newUrl)
+      window.history.replaceState({}, '', newUrl)
     }
   }, [hasHydrated, store, t])
 
   return importResult
 }
-

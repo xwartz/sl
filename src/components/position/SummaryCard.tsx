@@ -31,7 +31,7 @@ export default function SummaryCard({
             <span className="text-xs text-muted">{item.label}</span>
             <span
               className={
-                item.valueClassName || "text-lg font-semibold text-text"
+                item.valueClassName || 'text-lg font-semibold text-text'
               }
             >
               {item.value}

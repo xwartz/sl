@@ -1,7 +1,10 @@
 import { Copy, Trash2 } from 'lucide-react'
 import { useI18n } from '../../lib/i18n'
 import { formatCurrency } from '../../lib/position-calculator'
-import type { OrderEntry, OrderCalculation } from '../../lib/position-calculator'
+import type {
+  OrderEntry,
+  OrderCalculation,
+} from '../../lib/position-calculator'
 
 interface OrderTableRowProps {
   order: OrderEntry
@@ -66,7 +69,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <input
           type="number"
-          defaultValue={order.stopLoss || ""}
+          defaultValue={order.stopLoss || ''}
           onBlur={(e) => {
             const value = e.target.value
               ? parseFloat(e.target.value)
@@ -85,7 +88,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <input
           type="number"
-          defaultValue={order.takeProfit || ""}
+          defaultValue={order.takeProfit || ''}
           onBlur={(e) => {
             const value = e.target.value
               ? parseFloat(e.target.value)
@@ -108,10 +111,10 @@ export default function OrderTableRow({
       <td className="px-4 py-3 text-sm text-text whitespace-nowrap">
         <span
           className="font-medium cursor-help"
-          title={`${t("position.margin.label")}: $${formatCurrency(
+          title={`${t('position.margin.label')}: $${formatCurrency(
             calculation.margin,
             2
-          )} + ${t("position.fee.label")}: $${formatCurrency(
+          )} + ${t('position.fee.label')}: $${formatCurrency(
             calculation.fee,
             2
           )}`}
@@ -131,25 +134,25 @@ export default function OrderTableRow({
       <td
         className={`px-4 py-3 text-sm whitespace-nowrap font-medium ${
           stopLossPnL < 0
-            ? "text-danger"
+            ? 'text-danger'
             : stopLossPnL > 0
-            ? "text-success"
-            : "text-muted"
+              ? 'text-success'
+              : 'text-muted'
         }`}
       >
-        {order.stopLoss ? `$${formatCurrency(stopLossPnL, 2)}` : "-"}
+        {order.stopLoss ? `$${formatCurrency(stopLossPnL, 2)}` : '-'}
       </td>
       {/* 止盈盈亏 */}
       <td
         className={`px-4 py-3 text-sm whitespace-nowrap font-medium ${
           takeProfitPnL > 0
-            ? "text-success"
+            ? 'text-success'
             : takeProfitPnL < 0
-            ? "text-danger"
-            : "text-muted"
+              ? 'text-danger'
+              : 'text-muted'
         }`}
       >
-        {order.takeProfit ? `$${formatCurrency(takeProfitPnL, 2)}` : "-"}
+        {order.takeProfit ? `$${formatCurrency(takeProfitPnL, 2)}` : '-'}
       </td>
       {/* 操作 */}
       <td className="px-4 py-3">
@@ -157,14 +160,14 @@ export default function OrderTableRow({
           <button
             onClick={() => onDuplicateOrder(order.id)}
             className="p-2 hover:bg-panel rounded-lg transition-colors"
-            title={t("position.duplicate")}
+            title={t('position.duplicate')}
           >
             <Copy size={16} className="text-muted hover:text-text" />
           </button>
           <button
             onClick={() => onDeleteOrder(order.id)}
             className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
-            title={t("position.delete")}
+            title={t('position.delete')}
           >
             <Trash2 size={16} className="text-danger" />
           </button>
@@ -173,4 +176,3 @@ export default function OrderTableRow({
     </tr>
   )
 }
-

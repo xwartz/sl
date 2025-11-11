@@ -4,7 +4,7 @@
  */
 
 export type PositionDirection = 'long' | 'short'
-export type MarginMode = "cross" | "isolated" // 全仓 | 逐仓
+export type MarginMode = 'cross' | 'isolated' // 全仓 | 逐仓
 
 export interface OrderEntry {
   id: string
@@ -133,13 +133,13 @@ export function calculateLiquidationPrice(
   // 确定最大可承受亏损
   // 全仓模式：可以亏损总本金
   // 逐仓模式：只能亏损当前仓位的保证金
-  const maxLoss = marginMode === "cross" ? totalCapital : totalMargin
+  const maxLoss = marginMode === 'cross' ? totalCapital : totalMargin
 
   if (maxLoss === 0) {
     return 0
   }
 
-  if (direction === "long") {
+  if (direction === 'long') {
     // 做多爆仓价：当价格下跌导致亏损 = 最大可承受亏损时
     // 亏损 = (平均价 - 爆仓价) × 数量 = 最大可承受亏损
     // 爆仓价 = 平均价 - 最大可承受亏损 / 数量
@@ -163,7 +163,7 @@ export function calculateProfitLoss(
 ): number {
   const priceChange = exitPrice - entryPrice
   const pnl =
-    direction === "long" ? priceChange * shares : -priceChange * shares
+    direction === 'long' ? priceChange * shares : -priceChange * shares
 
   return pnl
 }
@@ -283,7 +283,7 @@ export function calculatePositionSummary(
  * 格式化货币（添加千位分隔符）
  */
 export function formatCurrency(value: number, decimals: number = 2): string {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat('en-US', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(value)
@@ -316,4 +316,3 @@ export function calculateOrderProfitLoss(
 
   return { stopLossPnL, takeProfitPnL }
 }
-

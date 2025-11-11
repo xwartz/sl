@@ -1,7 +1,10 @@
 import { Copy, Trash2 } from 'lucide-react'
 import { useI18n } from '../../lib/i18n'
 import { formatCurrency } from '../../lib/position-calculator'
-import type { OrderEntry, OrderCalculation } from '../../lib/position-calculator'
+import type {
+  OrderEntry,
+  OrderCalculation,
+} from '../../lib/position-calculator'
 
 interface OrderCardProps {
   order: OrderEntry
@@ -32,7 +35,7 @@ export default function OrderCard({
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-border-var">
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-muted">
-            {t("position.order.number")} #{index + 1}
+            {t('position.order.number')} #{index + 1}
           </span>
           <span className="text-sm font-bold text-accent">
             ${formatCurrency(calculation.totalCost, 2)}
@@ -42,14 +45,14 @@ export default function OrderCard({
           <button
             onClick={() => onDuplicateOrder(order.id)}
             className="p-2 hover:bg-card rounded-lg transition-colors"
-            title={t("position.duplicate")}
+            title={t('position.duplicate')}
           >
             <Copy size={16} className="text-muted" />
           </button>
           <button
             onClick={() => onDeleteOrder(order.id)}
             className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
-            title={t("position.delete")}
+            title={t('position.delete')}
           >
             <Trash2 size={16} className="text-danger" />
           </button>
@@ -60,7 +63,7 @@ export default function OrderCard({
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
           <label className="block text-xs text-muted mb-1">
-            {t("position.unit.price")}
+            {t('position.unit.price')}
           </label>
           <input
             type="number"
@@ -78,7 +81,7 @@ export default function OrderCard({
         </div>
         <div>
           <label className="block text-xs text-muted mb-1">
-            {t("position.quantity")}
+            {t('position.quantity')}
           </label>
           <input
             type="number"
@@ -96,11 +99,11 @@ export default function OrderCard({
         </div>
         <div>
           <label className="block text-xs text-muted mb-1">
-            {t("position.stop.loss")}
+            {t('position.stop.loss')}
           </label>
           <input
             type="number"
-            defaultValue={order.stopLoss || ""}
+            defaultValue={order.stopLoss || ''}
             onBlur={(e) => {
               const value = e.target.value
                 ? parseFloat(e.target.value)
@@ -117,11 +120,11 @@ export default function OrderCard({
         </div>
         <div>
           <label className="block text-xs text-muted mb-1">
-            {t("position.take.profit")}
+            {t('position.take.profit')}
           </label>
           <input
             type="number"
-            defaultValue={order.takeProfit || ""}
+            defaultValue={order.takeProfit || ''}
             onBlur={(e) => {
               const value = e.target.value
                 ? parseFloat(e.target.value)
@@ -144,21 +147,21 @@ export default function OrderCard({
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div className="flex justify-between">
             <span className="text-muted">
-              {t("position.contract.value.short")}
+              {t('position.contract.value.short')}
             </span>
             <span className="font-bold text-text">
               ${formatCurrency(calculation.contractValue, 2)}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted">{t("position.total.cost.short")}</span>
+            <span className="text-muted">{t('position.total.cost.short')}</span>
             <span className="font-medium text-accent">
               ${formatCurrency(calculation.totalCost, 2)}
             </span>
           </div>
           <div className="flex justify-between">
             <span className="text-muted">
-              {t("position.cumulative.investment.short")}
+              {t('position.cumulative.investment.short')}
             </span>
             <span className="font-medium text-text">
               ${formatCurrency(calculation.cumulativeInvestment, 2)}
@@ -166,7 +169,7 @@ export default function OrderCard({
           </div>
           <div className="flex justify-between">
             <span className="text-muted">
-              {t("position.average.price.short")}
+              {t('position.average.price.short')}
             </span>
             <span className="font-medium text-text">
               ${formatCurrency(calculation.averagePrice, 2)}
@@ -178,11 +181,11 @@ export default function OrderCard({
         <div className="text-xs text-muted pt-2 border-t border-border-var/50">
           <div className="flex justify-between">
             <span>
-              {t("position.margin.label")}: $
+              {t('position.margin.label')}: $
               {formatCurrency(calculation.margin, 2)}
             </span>
             <span>
-              {t("position.fee.label")}: ${formatCurrency(calculation.fee, 2)}
+              {t('position.fee.label')}: ${formatCurrency(calculation.fee, 2)}
             </span>
           </div>
         </div>
@@ -193,15 +196,15 @@ export default function OrderCard({
             {order.stopLoss && (
               <div className="flex justify-between">
                 <span className="text-muted">
-                  {t("position.stop.loss.pnl")}
+                  {t('position.stop.loss.pnl')}
                 </span>
                 <span
                   className={`font-bold ${
                     stopLossPnL < 0
-                      ? "text-danger"
+                      ? 'text-danger'
                       : stopLossPnL > 0
-                      ? "text-success"
-                      : "text-muted"
+                        ? 'text-success'
+                        : 'text-muted'
                   }`}
                 >
                   ${formatCurrency(stopLossPnL, 2)}
@@ -211,15 +214,15 @@ export default function OrderCard({
             {order.takeProfit && (
               <div className="flex justify-between">
                 <span className="text-muted">
-                  {t("position.take.profit.pnl")}
+                  {t('position.take.profit.pnl')}
                 </span>
                 <span
                   className={`font-bold ${
                     takeProfitPnL > 0
-                      ? "text-success"
+                      ? 'text-success'
                       : takeProfitPnL < 0
-                      ? "text-danger"
-                      : "text-muted"
+                        ? 'text-danger'
+                        : 'text-muted'
                   }`}
                 >
                   ${formatCurrency(takeProfitPnL, 2)}
@@ -232,4 +235,3 @@ export default function OrderCard({
     </div>
   )
 }
-

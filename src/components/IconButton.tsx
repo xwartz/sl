@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 interface IconButtonProps {
   icon: React.ReactNode
@@ -13,7 +13,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   onClick,
   ariaLabel,
   disabled = false,
-  className = "",
+  className = '',
 }) => {
   const [isAnimating, setIsAnimating] = React.useState(false)
 
@@ -33,7 +33,7 @@ const IconButton: React.FC<IconButtonProps> = ({
     >
       <span
         className={`inline-flex transition-all duration-300 ${
-          isAnimating ? "rotate-180 scale-90" : "rotate-0 scale-100"
+          isAnimating ? 'rotate-180 scale-90' : 'rotate-0 scale-100'
         }`}
       >
         {icon}
@@ -43,4 +43,3 @@ const IconButton: React.FC<IconButtonProps> = ({
 }
 
 export default IconButton
-
