@@ -48,7 +48,7 @@ export default function PositionCalculator() {
         totalCapital: 10000,
         marginMode: 'cross',
       },
-      orders: [{ id: '1', price: 100000, quantity: 0.1 }],
+      orders: [{ id: Date.now().toString(), price: 100000, quantity: 0.1 }],
     }
     addPlan(newPlan)
   }
@@ -57,11 +57,12 @@ export default function PositionCalculator() {
   const handleAddOrder = () => {
     const lastOrder = activePlan.orders[activePlan.orders.length - 1]
     const defaultPrice = lastOrder ? lastOrder.price : 100000
+    const defaultQuantity = lastOrder ? lastOrder.quantity : 0.1
 
     const newOrder: OrderEntry = {
       id: Date.now().toString(),
       price: defaultPrice,
-      quantity: 0.1,
+      quantity: defaultQuantity,
     }
     addOrder(activePlanId, newOrder)
   }
