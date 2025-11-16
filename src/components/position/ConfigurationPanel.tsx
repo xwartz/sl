@@ -85,6 +85,7 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[180px]">
             <input
               type="number"
+              key={`totalCapital-${config.totalCapital}`}
               defaultValue={config.totalCapital}
               onBlur={(e) => {
                 const value = parseFloat(e.target.value) || 0
@@ -107,6 +108,7 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[120px]">
             <input
               type="number"
+              key={`leverage-${config.leverage}`}
               defaultValue={config.leverage}
               onBlur={(e) => {
                 const value = parseInt(e.target.value) || 1
@@ -130,6 +132,7 @@ export default function ConfigurationPanel({
           <div className="relative w-full sm:w-[120px]">
             <input
               type="number"
+              key={`feeRate-${config.feeRate}`}
               defaultValue={config.feeRate}
               onBlur={(e) => {
                 const value = parseFloat(e.target.value) || 0
