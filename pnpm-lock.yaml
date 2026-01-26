@@ -55,8 +55,8 @@ importers:
         specifier: ^0.4.25
         version: 0.4.25(eslint@9.39.2(jiti@2.6.1))
       globals:
-        specifier: ^16.5.0
-        version: 16.5.0
+        specifier: ^17.1.0
+        version: 17.1.0
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -810,6 +810,7 @@ packages:
 
   eslint-plugin-react-refresh@0.4.25:
     resolution: {integrity: sha512-dRUD2LOdEqI4zXHqbQ442blQAzdSuShAaiSq5Vtyy6LT08YUf0oOjBDo4VPx0dCPgiPWh1WB4dtbLOd0kOlDPQ==}
+    deprecated: This version introduced false positive. This was reverted in 0.4.26
     peerDependencies:
       eslint: '>=8.40'
 
@@ -908,8 +909,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@16.5.0:
-    resolution: {integrity: sha512-c/c15i26VrJ4IRt5Z89DnIzCGDn9EcebibhAOjw5ibqEHsE1wLUgkPn9RDmNcUKyU87GeaL633nyJ+pplFR2ZQ==}
+  globals@17.1.0:
+    resolution: {integrity: sha512-8HoIcWI5fCvG5NADj4bDav+er9B9JMj2vyL2pI8D0eismKyUvPLTSs+Ln3wqhwcp306i73iyVnEKx3F6T47TGw==}
     engines: {node: '>=18'}
 
   graceful-fs@4.2.11:
@@ -2159,7 +2160,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@16.5.0: {}
+  globals@17.1.0: {}
 
   graceful-fs@4.2.11: {}
 
