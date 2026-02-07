@@ -71,12 +71,11 @@ export default function ConfigurationPanel({
   const hiddenPresets = LEVERAGE_PRESETS.filter((v) => v > 10)
 
   return (
-    <div className="bg-card border border-border-var rounded-xl p-5 mb-6 shadow-sm">
-      {/* ── Row 1: Toggle controls ───────────────────────────── */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        {/* Trading mode */}
+    <div className="bg-card border border-border-var rounded-xl p-4 sm:p-5 mb-5 shadow-sm">
+      {/* Row 1: Toggle controls */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-muted uppercase tracking-wide">
+          <span className="text-xs font-medium text-muted">
             {t('position.trading.mode')}
           </span>
           <SegmentedControl
@@ -89,9 +88,8 @@ export default function ConfigurationPanel({
           />
         </div>
 
-        {/* Direction */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-muted uppercase tracking-wide">
+          <span className="text-xs font-medium text-muted">
             {t('position.direction')}
           </span>
           <SegmentedControl
@@ -112,10 +110,9 @@ export default function ConfigurationPanel({
           />
         </div>
 
-        {/* Margin mode – futures only */}
         {!isSpot && (
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-muted uppercase tracking-wide">
+            <span className="text-xs font-medium text-muted">
               {t('position.margin.mode')}
             </span>
             <SegmentedControl
@@ -130,12 +127,10 @@ export default function ConfigurationPanel({
         )}
       </div>
 
-      {/* ── Divider ──────────────────────────────────────────── */}
-      <div className="border-t border-border-var my-4" />
+      <div className="border-t border-border-var my-3.5" />
 
-      {/* ── Row 2: Numeric inputs ────────────────────────────── */}
-      <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
-        {/* Total Capital */}
+      {/* Row 2: Numeric inputs */}
+      <div className="flex flex-wrap items-end gap-x-5 gap-y-3">
         <div className="min-w-0">
           <label className="block text-xs font-medium text-muted mb-1.5">
             {t('position.total.capital')}
@@ -154,7 +149,6 @@ export default function ConfigurationPanel({
           </div>
         </div>
 
-        {/* Leverage – futures only */}
         {!isSpot && (
           <div className="min-w-0">
             <label className="block text-xs font-medium text-muted mb-1.5">
@@ -180,7 +174,6 @@ export default function ConfigurationPanel({
                 </span>
               </div>
 
-              {/* Quick presets */}
               <div className="flex items-center gap-1 flex-wrap">
                 {visiblePresets.map((preset) => (
                   <button
@@ -196,7 +189,6 @@ export default function ConfigurationPanel({
                   </button>
                 ))}
 
-                {/* More dropdown */}
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setShowMore(!showMore)}
@@ -234,7 +226,6 @@ export default function ConfigurationPanel({
           </div>
         )}
 
-        {/* Fee Rate */}
         <div className="min-w-0">
           <label className="block text-xs font-medium text-muted mb-1.5">
             {t('position.fee.rate')}
