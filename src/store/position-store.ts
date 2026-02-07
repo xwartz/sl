@@ -59,6 +59,7 @@ export const usePositionStore = create<PositionStore>()(
             feeRate: 0.05,
             totalCapital: 10000,
             marginMode: 'cross', // 默认全仓模式
+            tradingMode: 'futures', // 默认合约模式
           },
           orders: [{ id: '1', price: 100000, quantity: 0.1 }],
         },

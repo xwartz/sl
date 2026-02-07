@@ -26,6 +26,8 @@ export default function SummaryPanel({
 }: SummaryPanelProps) {
   const { t } = useI18n()
 
+  const isSpot = (config.tradingMode ?? 'futures') === 'spot'
+
   const capitalStatusItems = [
     {
       label: t('position.summary.capital.total'),
@@ -60,7 +62,9 @@ export default function SummaryPanel({
       valueClassName: 'text-lg font-semibold text-text',
     },
     {
-      label: t('position.summary.position.contract.value'),
+      label: isSpot
+        ? t('position.summary.position.value')
+        : t('position.summary.position.contract.value'),
       value: `$${formatCurrency(summary.totalContractValue, 2)}`,
       valueClassName: 'text-lg font-semibold text-text',
     },
@@ -92,8 +96,10 @@ export default function SummaryPanel({
         {t('position.summary')}
       </h2>
 
-      {/* 核心指标 - 3大卡片 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      {/* 核心指标 - 卡片 */}
+      <div
+        className={`grid grid-cols-1 ${isSpot ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-6 mb-6`}
+      >
         {/* 资金状况 */}
         <SummaryCard
           icon="💰"
@@ -145,16 +151,18 @@ export default function SummaryPanel({
           </div>
         </div>
 
-        {/* 风险指标 */}
-        <SummaryCard
-          icon="⚠️"
-          title={t('position.summary.risk.indicators')}
-          items={riskIndicatorsItems}
-          warning={{
-            show: summary.realLeverage > config.leverage,
-            message: t('position.over.leverage'),
-          }}
-        />
+        {/* 风险指标 - 仅合约模式显示 */}
+        {!isSpot && (
+          <SummaryCard
+            icon="⚠️"
+            title={t('position.summary.risk.indicators')}
+            items={riskIndicatorsItems}
+            warning={{
+              show: summary.realLeverage > config.leverage,
+              message: t('position.over.leverage'),
+            }}
+          />
+        )}
       </div>
 
       {/* 盈亏分析 */}

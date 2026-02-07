@@ -47,6 +47,7 @@ export default function PositionCalculator() {
         feeRate: 0.05,
         totalCapital: 10000,
         marginMode: 'cross',
+        tradingMode: 'futures',
       },
       orders: [{ id: Date.now().toString(), price: 100000, quantity: 0.1 }],
     }
@@ -73,22 +74,26 @@ export default function PositionCalculator() {
 
     let previousTotalQuantity = 0
     let previousCumulativeInvestment = 0
+    let previousTotalContractValue = 0
 
     previousOrders.forEach((o) => {
       const calc = calculateOrder(
         o,
         previousTotalQuantity,
         previousCumulativeInvestment,
+        previousTotalContractValue,
         activePlan.config
       )
       previousTotalQuantity = calc.totalQuantity
       previousCumulativeInvestment = calc.cumulativeInvestment
+      previousTotalContractValue = calc.totalContractValue
     })
 
     const calculation = calculateOrder(
       order,
       previousTotalQuantity,
       previousCumulativeInvestment,
+      previousTotalContractValue,
       activePlan.config
     )
 

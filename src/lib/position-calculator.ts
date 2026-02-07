@@ -5,6 +5,7 @@
 
 export type PositionDirection = 'long' | 'short'
 export type MarginMode = 'cross' | 'isolated' // 全仓 | 逐仓
+export type TradingMode = 'spot' | 'futures' // 现货 | 合约
 
 export interface OrderEntry {
   id: string
@@ -20,6 +21,7 @@ export interface PositionConfig {
   feeRate: number // 费率 (%)
   totalCapital: number // 总本金
   marginMode: MarginMode // 保证金模式（全仓/逐仓）
+  tradingMode: TradingMode // 交易模式（现货/合约）
 }
 
 export interface OrderCalculation {
@@ -31,6 +33,7 @@ export interface OrderCalculation {
   cumulativeInvestment: number // 累计投资
   averagePrice: number // 平均价
   totalQuantity: number // 总持仓数量
+  totalContractValue: number // 累计合约/持仓价值
 }
 
 export interface PositionSummary {
@@ -68,17 +71,21 @@ export function calculateOrder(
   order: OrderEntry,
   previousTotalQuantity: number,
   previousCumulativeInvestment: number,
+  previousTotalContractValue: number,
   config: PositionConfig
 ): OrderCalculation {
-  const { leverage, feeRate } = config
+  // 现货模式下杠杆固定为 1
+  const leverage =
+    (config.tradingMode ?? 'futures') === 'spot' ? 1 : config.leverage
+  const { feeRate } = config
 
   // 购买数量（直接使用输入的数量）
   const quantity = order.quantity
 
-  // 合约价值 = 价格 × 数量
+  // 合约/持仓价值 = 价格 × 数量
   const contractValue = order.price * quantity
 
-  // 需要保证金 = 合约价值 ÷ 杠杆
+  // 需要保证金 = 合约价值 ÷ 杠杆（现货模式下杠杆=1，即全额支付）
   const margin = contractValue / leverage
 
   // 手续费 = 合约价值 × 费率%
@@ -93,9 +100,12 @@ export function calculateOrder(
   // 总持仓数量
   const totalQuantity = previousTotalQuantity + quantity
 
-  // 平均价 = 累计投入本金 × 杠杆 / 总持仓量
+  // 累计持仓价值
+  const totalContractValue = previousTotalContractValue + contractValue
+
+  // 平均价 = 累计持仓价值 / 总持仓量（加权平均，不含手续费）
   const averagePrice =
-    totalQuantity > 0 ? (cumulativeInvestment * leverage) / totalQuantity : 0
+    totalQuantity > 0 ? totalContractValue / totalQuantity : 0
 
   return {
     quantity,
@@ -106,6 +116,7 @@ export function calculateOrder(
     cumulativeInvestment,
     averagePrice,
     totalQuantity,
+    totalContractValue,
   }
 }
 
@@ -124,29 +135,30 @@ export function calculateLiquidationPrice(
   marginMode: MarginMode,
   totalCapital: number,
   totalMargin: number,
-  totalQuantity: number
+  totalQuantity: number,
+  totalFees: number = 0
 ): number {
   if (totalQuantity === 0) {
     return 0
   }
 
   // 确定最大可承受亏损
-  // 全仓模式：可以亏损总本金
+  // 全仓模式：总本金扣除已支付手续费后的余额（手续费已从账户扣除）
   // 逐仓模式：只能亏损当前仓位的保证金
-  const maxLoss = marginMode === 'cross' ? totalCapital : totalMargin
+  const maxLoss =
+    marginMode === 'cross' ? totalCapital - totalFees : totalMargin
 
-  if (maxLoss === 0) {
+  if (maxLoss <= 0) {
     return 0
   }
 
   if (direction === 'long') {
     // 做多爆仓价：当价格下跌导致亏损 = 最大可承受亏损时
-    // 亏损 = (平均价 - 爆仓价) × 数量 = 最大可承受亏损
     // 爆仓价 = 平均价 - 最大可承受亏损 / 数量
-    return averagePrice - maxLoss / totalQuantity
+    const liqPrice = averagePrice - maxLoss / totalQuantity
+    return Math.max(0, liqPrice)
   } else {
     // 做空爆仓价：当价格上涨导致亏损 = 最大可承受亏损时
-    // 亏损 = (爆仓价 - 平均价) × 数量 = 最大可承受亏损
     // 爆仓价 = 平均价 + 最大可承受亏损 / 数量
     return averagePrice + maxLoss / totalQuantity
   }
@@ -180,6 +192,7 @@ export function calculatePositionSummary(
   let totalQuantity = 0
   let totalFees = 0
   let cumulativeInvestment = 0
+  let totalContractValueAccum = 0
   let averagePrice = 0
 
   // 计算所有订单
@@ -188,18 +201,21 @@ export function calculatePositionSummary(
       order,
       totalQuantity,
       cumulativeInvestment,
+      totalContractValueAccum,
       config
     )
 
     totalQuantity = calculation.totalQuantity
     cumulativeInvestment = calculation.cumulativeInvestment
+    totalContractValueAccum = calculation.totalContractValue
     averagePrice = calculation.averagePrice
     totalMargin += calculation.margin
     totalFees += calculation.fee
   })
 
   totalInvestment = cumulativeInvestment
-  const totalContractValue = totalMargin * config.leverage
+  const isSpot = (config.tradingMode ?? 'futures') === 'spot'
+  const totalContractValue = totalContractValueAccum
 
   // 总本金相关计算
   const totalCapital = config.totalCapital
@@ -208,16 +224,17 @@ export function calculatePositionSummary(
     totalCapital > 0 ? (totalInvestment / totalCapital) * 100 : 0
   const isOverCapital = totalInvestment > totalCapital
 
-  // 计算爆仓价
+  // 计算爆仓价（现货模式不计算爆仓价）
   const liquidationPrice =
-    totalQuantity > 0
+    !isSpot && totalQuantity > 0
       ? calculateLiquidationPrice(
           averagePrice,
           config.direction,
           config.marginMode,
           totalCapital,
           totalMargin,
-          totalQuantity
+          totalQuantity,
+          totalFees
         )
       : 0
 

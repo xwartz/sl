@@ -5,6 +5,7 @@ import type {
   OrderEntry,
   OrderCalculation,
 } from '../../lib/position-calculator'
+import NumberInput from '../NumberInput'
 
 interface OrderCardProps {
   order: OrderEntry
@@ -65,15 +66,9 @@ export default function OrderCard({
           <label className="block text-xs text-muted mb-1">
             {t('position.unit.price')}
           </label>
-          <input
-            type="number"
-            defaultValue={order.price}
-            onBlur={(e) => {
-              const value = parseFloat(e.target.value) || 0
-              if (value !== order.price) {
-                onUpdateOrder(order.id, { price: value })
-              }
-            }}
+          <NumberInput
+            value={order.price}
+            onChange={(v) => onUpdateOrder(order.id, { price: v ?? 0 })}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
             step="0.01"
@@ -83,15 +78,9 @@ export default function OrderCard({
           <label className="block text-xs text-muted mb-1">
             {t('position.quantity')}
           </label>
-          <input
-            type="number"
-            defaultValue={order.quantity}
-            onBlur={(e) => {
-              const value = parseFloat(e.target.value) || 0
-              if (value !== order.quantity) {
-                onUpdateOrder(order.id, { quantity: value })
-              }
-            }}
+          <NumberInput
+            value={order.quantity}
+            onChange={(v) => onUpdateOrder(order.id, { quantity: v ?? 0 })}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
             step="0.0001"
@@ -101,17 +90,10 @@ export default function OrderCard({
           <label className="block text-xs text-muted mb-1">
             {t('position.stop.loss')}
           </label>
-          <input
-            type="number"
-            defaultValue={order.stopLoss || ''}
-            onBlur={(e) => {
-              const value = e.target.value
-                ? parseFloat(e.target.value)
-                : undefined
-              if (value !== order.stopLoss) {
-                onUpdateOrder(order.id, { stopLoss: value })
-              }
-            }}
+          <NumberInput
+            value={order.stopLoss}
+            onChange={(v) => onUpdateOrder(order.id, { stopLoss: v })}
+            allowEmpty
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"
             min="0"
@@ -122,17 +104,10 @@ export default function OrderCard({
           <label className="block text-xs text-muted mb-1">
             {t('position.take.profit')}
           </label>
-          <input
-            type="number"
-            defaultValue={order.takeProfit || ''}
-            onBlur={(e) => {
-              const value = e.target.value
-                ? parseFloat(e.target.value)
-                : undefined
-              if (value !== order.takeProfit) {
-                onUpdateOrder(order.id, { takeProfit: value })
-              }
-            }}
+          <NumberInput
+            value={order.takeProfit}
+            onChange={(v) => onUpdateOrder(order.id, { takeProfit: v })}
+            allowEmpty
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"
             min="0"
