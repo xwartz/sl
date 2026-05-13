@@ -1,14 +1,14 @@
 import { useI18n } from '../lib/i18n'
 import {
-  type OrderEntry,
   calculateOrder,
-  calculatePositionSummary,
   calculateOrderProfitLoss,
+  calculatePositionSummary,
+  type OrderEntry,
 } from '../lib/position-calculator'
-import { usePositionStore, type PlanTab } from '../store/position-store'
-import PlanTabs from './position/PlanTabs'
+import { type PlanTab, usePositionStore } from '../store/position-store'
 import ConfigurationPanel from './position/ConfigurationPanel'
 import OrderList from './position/OrderList'
+import PlanTabs from './position/PlanTabs'
 import SummaryPanel from './position/SummaryPanel'
 
 export default function PositionCalculator() {
@@ -34,7 +34,7 @@ export default function PositionCalculator() {
     duplicateOrder,
   } = usePositionStore()
 
-  const activePlan = plans.find((p) => p.id === activePlanId) || plans[0]
+  const activePlan = plans.find(p => p.id === activePlanId) || plans[0]
 
   // 添加新计划
   const handleAddPlan = () => {
@@ -76,13 +76,13 @@ export default function PositionCalculator() {
     let previousCumulativeInvestment = 0
     let previousTotalContractValue = 0
 
-    previousOrders.forEach((o) => {
+    previousOrders.forEach(o => {
       const calc = calculateOrder(
         o,
         previousTotalQuantity,
         previousCumulativeInvestment,
         previousTotalContractValue,
-        activePlan.config
+        activePlan.config,
       )
       previousTotalQuantity = calc.totalQuantity
       previousCumulativeInvestment = calc.cumulativeInvestment
@@ -94,7 +94,7 @@ export default function PositionCalculator() {
       previousTotalQuantity,
       previousCumulativeInvestment,
       previousTotalContractValue,
-      activePlan.config
+      activePlan.config,
     )
 
     const { stopLossPnL, takeProfitPnL } = calculateOrderProfitLoss(
@@ -102,7 +102,7 @@ export default function PositionCalculator() {
       order.price,
       order.stopLoss,
       order.takeProfit,
-      activePlan.config.direction
+      activePlan.config.direction,
     )
 
     return {
@@ -119,11 +119,11 @@ export default function PositionCalculator() {
   // 计算总的止损止盈
   const totalStopLossPnL = ordersWithCalculations.reduce(
     (sum, item) => sum + item.stopLossPnL,
-    0
+    0,
   )
   const totalTakeProfitPnL = ordersWithCalculations.reduce(
     (sum, item) => sum + item.takeProfitPnL,
-    0
+    0,
   )
 
   // 计算止损价值占总本金的比例
@@ -159,7 +159,7 @@ export default function PositionCalculator() {
         {/* 配置区域 */}
         <ConfigurationPanel
           config={activePlan.config}
-          onConfigChange={(updates) => updatePlanConfig(activePlanId, updates)}
+          onConfigChange={updates => updatePlanConfig(activePlanId, updates)}
         />
 
         {/* 订单列表 */}
@@ -168,8 +168,8 @@ export default function PositionCalculator() {
           onUpdateOrder={(orderId, updates) =>
             updateOrder(activePlanId, orderId, updates)
           }
-          onDuplicateOrder={(orderId) => duplicateOrder(activePlanId, orderId)}
-          onDeleteOrder={(orderId) => deleteOrder(activePlanId, orderId)}
+          onDuplicateOrder={orderId => duplicateOrder(activePlanId, orderId)}
+          onDeleteOrder={orderId => deleteOrder(activePlanId, orderId)}
           onAddOrder={handleAddOrder}
         />
 

@@ -72,7 +72,7 @@ export function calculateOrder(
   previousTotalQuantity: number,
   previousCumulativeInvestment: number,
   previousTotalContractValue: number,
-  config: PositionConfig
+  config: PositionConfig,
 ): OrderCalculation {
   // 现货模式下杠杆固定为 1
   const leverage =
@@ -136,7 +136,7 @@ export function calculateLiquidationPrice(
   totalCapital: number,
   totalMargin: number,
   totalQuantity: number,
-  totalFees: number = 0
+  totalFees: number = 0,
 ): number {
   if (totalQuantity === 0) {
     return 0
@@ -171,7 +171,7 @@ export function calculateProfitLoss(
   entryPrice: number,
   exitPrice: number,
   shares: number,
-  direction: PositionDirection
+  direction: PositionDirection,
 ): number {
   const priceChange = exitPrice - entryPrice
   const pnl =
@@ -185,7 +185,7 @@ export function calculateProfitLoss(
  */
 export function calculatePositionSummary(
   orders: OrderEntry[],
-  config: PositionConfig
+  config: PositionConfig,
 ): PositionSummary {
   let totalInvestment = 0
   let totalMargin = 0
@@ -196,13 +196,13 @@ export function calculatePositionSummary(
   let averagePrice = 0
 
   // 计算所有订单
-  orders.forEach((order) => {
+  orders.forEach(order => {
     const calculation = calculateOrder(
       order,
       totalQuantity,
       cumulativeInvestment,
       totalContractValueAccum,
-      config
+      config,
     )
 
     totalQuantity = calculation.totalQuantity
@@ -234,7 +234,7 @@ export function calculatePositionSummary(
           totalCapital,
           totalMargin,
           totalQuantity,
-          totalFees
+          totalFees,
         )
       : 0
 
@@ -246,8 +246,8 @@ export function calculatePositionSummary(
     totalInvestment > 0 ? totalContractValue / totalInvestment : 0
 
   // 找到止损价和止盈价（使用第一个有效的）
-  const stopLoss = orders.find((o) => o.stopLoss)?.stopLoss || 0
-  const takeProfit = orders.find((o) => o.takeProfit)?.takeProfit || 0
+  const stopLoss = orders.find(o => o.stopLoss)?.stopLoss || 0
+  const takeProfit = orders.find(o => o.takeProfit)?.takeProfit || 0
 
   // 计算止损和止盈时的盈亏
   const profitLossOnStopLoss =
@@ -256,7 +256,7 @@ export function calculatePositionSummary(
           averagePrice,
           stopLoss,
           totalQuantity,
-          config.direction
+          config.direction,
         )
       : 0
 
@@ -266,7 +266,7 @@ export function calculatePositionSummary(
           averagePrice,
           takeProfit,
           totalQuantity,
-          config.direction
+          config.direction,
         )
       : 0
 
@@ -321,7 +321,7 @@ export function calculateOrderProfitLoss(
   entryPrice: number,
   stopLoss: number | undefined,
   takeProfit: number | undefined,
-  direction: PositionDirection
+  direction: PositionDirection,
 ): { stopLossPnL: number; takeProfitPnL: number } {
   const stopLossPnL = stopLoss
     ? calculateProfitLoss(entryPrice, stopLoss, quantity, direction)

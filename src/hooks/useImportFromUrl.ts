@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { usePositionStore, type PlanTab } from '../store/position-store'
 import { useI18n } from '../lib/i18n'
+import { type PlanTab, usePositionStore } from '../store/position-store'
 
 interface ImportResult {
   status: 'idle' | 'success' | 'error'
@@ -17,7 +17,7 @@ export function useImportFromUrl() {
   const [importResult, setImportResult] = useState<ImportResult>({
     status: 'idle',
   })
-  const hasHydrated = usePositionStore((state) => state._hasHydrated)
+  const hasHydrated = usePositionStore(state => state._hasHydrated)
   const store = usePositionStore()
   const { t } = useI18n()
 
@@ -49,7 +49,7 @@ export function useImportFromUrl() {
       const currentPlans = store.plans
 
       // 智能导入：检查内容是否相同，而不仅仅是 ID
-      const existingPlansMap = new Map(currentPlans.map((p) => [p.id, p]))
+      const existingPlansMap = new Map(currentPlans.map(p => [p.id, p]))
       const plansToImport: PlanTab[] = []
 
       for (const sharedPlan of shareData.plans) {

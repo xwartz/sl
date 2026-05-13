@@ -1,10 +1,10 @@
 import { Copy, Trash2 } from 'lucide-react'
 import { useI18n } from '../../lib/i18n'
-import { formatCurrency } from '../../lib/position-calculator'
 import type {
-  OrderEntry,
   OrderCalculation,
+  OrderEntry,
 } from '../../lib/position-calculator'
+import { formatCurrency } from '../../lib/position-calculator'
 import NumberInput from '../NumberInput'
 
 interface OrderCardProps {
@@ -29,6 +29,11 @@ export default function OrderCard({
   onDeleteOrder,
 }: OrderCardProps) {
   const { t } = useI18n()
+  const inputIdBase = `order-${order.id}`
+  const priceInputId = `${inputIdBase}-price`
+  const quantityInputId = `${inputIdBase}-quantity`
+  const stopLossInputId = `${inputIdBase}-stop-loss`
+  const takeProfitInputId = `${inputIdBase}-take-profit`
 
   return (
     <div className="bg-panel rounded-xl p-4 border border-border-var">
@@ -44,6 +49,7 @@ export default function OrderCard({
         </div>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => onDuplicateOrder(order.id)}
             className="p-2 hover:bg-card rounded-lg transition-colors"
             title={t('position.duplicate')}
@@ -51,6 +57,7 @@ export default function OrderCard({
             <Copy size={16} className="text-muted" />
           </button>
           <button
+            type="button"
             onClick={() => onDeleteOrder(order.id)}
             className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
             title={t('position.delete')}
@@ -63,36 +70,48 @@ export default function OrderCard({
       {/* 输入字段 */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-xs text-muted mb-1">
+          <label
+            htmlFor={priceInputId}
+            className="block text-xs text-muted mb-1"
+          >
             {t('position.unit.price')}
           </label>
           <NumberInput
+            id={priceInputId}
             value={order.price}
-            onChange={(v) => onUpdateOrder(order.id, { price: v ?? 0 })}
+            onChange={v => onUpdateOrder(order.id, { price: v ?? 0 })}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
             step="0.01"
           />
         </div>
         <div>
-          <label className="block text-xs text-muted mb-1">
+          <label
+            htmlFor={quantityInputId}
+            className="block text-xs text-muted mb-1"
+          >
             {t('position.quantity')}
           </label>
           <NumberInput
+            id={quantityInputId}
             value={order.quantity}
-            onChange={(v) => onUpdateOrder(order.id, { quantity: v ?? 0 })}
+            onChange={v => onUpdateOrder(order.id, { quantity: v ?? 0 })}
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text"
             min="0"
             step="0.0001"
           />
         </div>
         <div>
-          <label className="block text-xs text-muted mb-1">
+          <label
+            htmlFor={stopLossInputId}
+            className="block text-xs text-muted mb-1"
+          >
             {t('position.stop.loss')}
           </label>
           <NumberInput
+            id={stopLossInputId}
             value={order.stopLoss}
-            onChange={(v) => onUpdateOrder(order.id, { stopLoss: v })}
+            onChange={v => onUpdateOrder(order.id, { stopLoss: v })}
             allowEmpty
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"
@@ -101,12 +120,16 @@ export default function OrderCard({
           />
         </div>
         <div>
-          <label className="block text-xs text-muted mb-1">
+          <label
+            htmlFor={takeProfitInputId}
+            className="block text-xs text-muted mb-1"
+          >
             {t('position.take.profit')}
           </label>
           <NumberInput
+            id={takeProfitInputId}
             value={order.takeProfit}
-            onChange={(v) => onUpdateOrder(order.id, { takeProfit: v })}
+            onChange={v => onUpdateOrder(order.id, { takeProfit: v })}
             allowEmpty
             placeholder="-"
             className="w-full px-3 py-2 rounded-lg bg-card border border-border-var text-sm text-text placeholder:text-muted"

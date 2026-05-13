@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { I18nContext, STORAGE_KEY, translate } from './i18n'
+import type React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { Language } from './i18n'
+import { I18nContext, STORAGE_KEY, translate } from './i18n'
 
 interface I18nProviderProps {
   children: React.ReactNode
@@ -34,7 +35,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
     (key: string, vars?: Record<string, string | number>): string => {
       return translate(language, key, vars)
     },
-    [language]
+    [language],
   )
 
   useEffect(() => {

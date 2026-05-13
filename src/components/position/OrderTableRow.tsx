@@ -1,10 +1,10 @@
 import { Copy, Trash2 } from 'lucide-react'
 import { useI18n } from '../../lib/i18n'
-import { formatCurrency } from '../../lib/position-calculator'
 import type {
-  OrderEntry,
   OrderCalculation,
+  OrderEntry,
 } from '../../lib/position-calculator'
+import { formatCurrency } from '../../lib/position-calculator'
 import NumberInput from '../NumberInput'
 
 interface OrderTableRowProps {
@@ -38,7 +38,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <NumberInput
           value={order.price}
-          onChange={(v) => onUpdateOrder(order.id, { price: v ?? 0 })}
+          onChange={v => onUpdateOrder(order.id, { price: v ?? 0 })}
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text"
           min="0"
           step="0.01"
@@ -48,7 +48,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <NumberInput
           value={order.quantity}
-          onChange={(v) => onUpdateOrder(order.id, { quantity: v ?? 0 })}
+          onChange={v => onUpdateOrder(order.id, { quantity: v ?? 0 })}
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text"
           min="0"
           step="0.01"
@@ -58,7 +58,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <NumberInput
           value={order.stopLoss}
-          onChange={(v) => onUpdateOrder(order.id, { stopLoss: v })}
+          onChange={v => onUpdateOrder(order.id, { stopLoss: v })}
           allowEmpty
           placeholder="-"
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text placeholder:text-muted"
@@ -70,7 +70,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <NumberInput
           value={order.takeProfit}
-          onChange={(v) => onUpdateOrder(order.id, { takeProfit: v })}
+          onChange={v => onUpdateOrder(order.id, { takeProfit: v })}
           allowEmpty
           placeholder="-"
           className="w-28 px-3 py-2 rounded-lg bg-panel border border-border-var text-sm text-text placeholder:text-muted"
@@ -88,10 +88,10 @@ export default function OrderTableRow({
           className="font-medium cursor-help"
           title={`${t('position.margin.label')}: $${formatCurrency(
             calculation.margin,
-            2
+            2,
           )} + ${t('position.fee.label')}: $${formatCurrency(
             calculation.fee,
-            2
+            2,
           )}`}
         >
           ${formatCurrency(calculation.totalCost, 2)}
@@ -133,6 +133,7 @@ export default function OrderTableRow({
       <td className="px-4 py-3">
         <div className="flex items-center justify-center gap-2">
           <button
+            type="button"
             onClick={() => onDuplicateOrder(order.id)}
             className="p-2 hover:bg-panel rounded-lg transition-colors"
             title={t('position.duplicate')}
@@ -140,6 +141,7 @@ export default function OrderTableRow({
             <Copy size={16} className="text-muted hover:text-text" />
           </button>
           <button
+            type="button"
             onClick={() => onDeleteOrder(order.id)}
             className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
             title={t('position.delete')}

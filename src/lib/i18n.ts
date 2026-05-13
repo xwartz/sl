@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
-import { translations } from '../locales'
 import type { Language } from '../locales'
+import { translations } from '../locales'
 
 export type { Language }
 
@@ -25,7 +25,7 @@ export const useI18n = (): I18nContextType => {
 export const translate = (
   language: Language,
   key: string,
-  vars?: Record<string, string | number>
+  vars?: Record<string, string | number>,
 ): string => {
   let text = translations[language][key] || key
 

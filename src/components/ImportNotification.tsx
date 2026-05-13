@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle, X } from 'lucide-react'
+import { CheckCircle, X, XCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useImportFromUrl } from '../hooks/useImportFromUrl'
 import { useI18n } from '../lib/i18n'
@@ -45,6 +45,7 @@ export default function ImportNotification() {
           )}
         </div>
         <button
+          type="button"
           onClick={() => setVisible(false)}
           className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity"
         >

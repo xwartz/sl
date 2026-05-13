@@ -1,17 +1,17 @@
-import React from 'react'
-import { createPortal } from 'react-dom'
 import {
-  Share2,
-  Check,
   AlertCircle,
+  Check,
+  Download,
   Link,
   QrCode,
-  Download,
+  Share2,
   Upload,
   X,
 } from 'lucide-react'
+import React from 'react'
+import { createPortal } from 'react-dom'
 import { useI18n } from '../lib/i18n'
-import { usePositionStore, type PlanTab } from '../store/position-store'
+import { type PlanTab, usePositionStore } from '../store/position-store'
 import IconButton from './IconButton'
 
 const ShareButton: React.FC = () => {
@@ -96,7 +96,7 @@ const ShareButton: React.FC = () => {
       const file = (e.target as HTMLInputElement).files?.[0]
       if (!file) return
       const reader = new FileReader()
-      reader.onload = (ev) => {
+      reader.onload = ev => {
         try {
           const data = JSON.parse(ev.target?.result as string) as {
             plans: PlanTab[]
@@ -140,6 +140,7 @@ const ShareButton: React.FC = () => {
         {isOpen && (
           <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border-var rounded-lg shadow-lg z-50 py-1">
             <button
+              type="button"
               onClick={handleCopy}
               className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
             >
@@ -147,6 +148,7 @@ const ShareButton: React.FC = () => {
               {t('share.copy.link')}
             </button>
             <button
+              type="button"
               onClick={handleQR}
               className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
             >
@@ -155,6 +157,7 @@ const ShareButton: React.FC = () => {
             </button>
             <hr className="my-1 border-border-var" />
             <button
+              type="button"
               onClick={handleExport}
               className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
             >
@@ -162,6 +165,7 @@ const ShareButton: React.FC = () => {
               {t('share.export')}
             </button>
             <button
+              type="button"
               onClick={handleImport}
               className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
             >
@@ -175,20 +179,30 @@ const ShareButton: React.FC = () => {
       {/* QR Code Modal - Rendered via Portal */}
       {showQR &&
         createPortal(
-          <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 overflow-y-auto"
-            onClick={() => setShowQR(false)}
-          >
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 overflow-y-auto">
+            <button
+              type="button"
+              className="absolute inset-0 border-0 bg-black/50 p-0"
+              aria-label={t('share.close')}
+              onClick={() => setShowQR(false)}
+            />
             <div
-              className="bg-card rounded-xl p-6 max-w-sm w-full shadow-2xl border border-border-var my-auto max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="share-qr-title"
+              className="relative bg-card rounded-xl p-6 max-w-sm w-full shadow-2xl border border-border-var my-auto max-h-[90vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-text">
+                <h3
+                  id="share-qr-title"
+                  className="text-lg font-semibold text-text"
+                >
                   {t('share.qr.title')}
                 </h3>
                 <button
+                  type="button"
                   onClick={() => setShowQR(false)}
+                  aria-label={t('share.close')}
                   className="p-1.5 hover:bg-panel rounded-lg transition-colors"
                 >
                   <X size={18} className="text-muted" />
@@ -219,6 +233,7 @@ const ShareButton: React.FC = () => {
               </p>
 
               <button
+                type="button"
                 onClick={async () => {
                   await navigator.clipboard.writeText(shareUrl)
                   setCopyStatus('success')
@@ -230,7 +245,7 @@ const ShareButton: React.FC = () => {
               </button>
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </>
   )

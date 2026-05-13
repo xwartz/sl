@@ -1,11 +1,11 @@
 import { useI18n } from '../../lib/i18n'
-import { formatCurrency } from '../../lib/position-calculator'
 import type {
-  PositionSummary,
   PositionConfig,
+  PositionSummary,
 } from '../../lib/position-calculator'
-import SummaryCard from './SummaryCard'
+import { formatCurrency } from '../../lib/position-calculator'
 import PnLAnalysis from './PnLAnalysis'
+import SummaryCard from './SummaryCard'
 
 interface SummaryPanelProps {
   summary: PositionSummary
@@ -124,8 +124,11 @@ export default function SummaryPanel({
             📊 {t('position.summary.position.info')}
           </div>
           <div className="space-y-3">
-            {positionInfoItems.map((item, index) => (
-              <div key={index} className="flex justify-between items-baseline">
+            {positionInfoItems.map(item => (
+              <div
+                key={item.label}
+                className="flex justify-between items-baseline"
+              >
                 <span className="text-xs text-muted">{item.label}</span>
                 <span className={item.valueClassName}>{item.value}</span>
               </div>

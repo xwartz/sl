@@ -1,11 +1,11 @@
 import { Plus } from 'lucide-react'
 import { useI18n } from '../../lib/i18n'
-import OrderTableRow from './OrderTableRow'
-import OrderCard from './OrderCard'
 import type {
-  OrderEntry,
   OrderCalculation,
+  OrderEntry,
 } from '../../lib/position-calculator'
+import OrderCard from './OrderCard'
+import OrderTableRow from './OrderTableRow'
 
 interface OrderWithCalculation {
   order: OrderEntry
@@ -90,7 +90,7 @@ export default function OrderList({
                   onDuplicateOrder={onDuplicateOrder}
                   onDeleteOrder={onDeleteOrder}
                 />
-              )
+              ),
             )}
           </tbody>
         </table>
@@ -111,13 +111,14 @@ export default function OrderList({
               onDuplicateOrder={onDuplicateOrder}
               onDeleteOrder={onDeleteOrder}
             />
-          )
+          ),
         )}
       </div>
 
       {/* 添加订单按钮 */}
       <div className="border-t border-border-var p-4">
         <button
+          type="button"
           onClick={onAddOrder}
           className="w-full py-3 border-2 border-dashed border-border-var rounded-lg hover:border-accent hover:bg-panel/50 transition-all text-sm text-muted hover:text-text flex items-center justify-center gap-2"
         >

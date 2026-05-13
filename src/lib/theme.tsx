@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { ThemeContext } from './theme-context'
+import type React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { ThemePref } from './theme-context'
+import { ThemeContext } from './theme-context'
 
 const THEME_KEY = 'sl:theme'
 
@@ -23,7 +24,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       typeof window !== 'undefined' && window.matchMedia
         ? window.matchMedia('(prefers-color-scheme: dark)')
         : null
-    const systemDark = Boolean(mql && mql.matches)
+    const systemDark = Boolean(mql?.matches)
 
     const useDark =
       pref === 'dark' ? true : pref === 'light' ? false : systemDark

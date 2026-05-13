@@ -38,7 +38,7 @@ interface PositionStore {
   updateOrder: (
     planId: string,
     orderId: string,
-    updates: Partial<OrderEntry>
+    updates: Partial<OrderEntry>,
   ) => void
   deleteOrder: (planId: string, orderId: string) => void
   duplicateOrder: (planId: string, orderId: string) => void
@@ -69,11 +69,11 @@ export const usePositionStore = create<PositionStore>()(
       _hasHydrated: false,
 
       // Actions
-      setActivePlanId: (id) => set({ activePlanId: id }),
+      setActivePlanId: id => set({ activePlanId: id }),
 
-      setPlans: (plans) => set({ plans }),
+      setPlans: plans => set({ plans }),
 
-      setHasHydrated: (state) => set({ _hasHydrated: state }),
+      setHasHydrated: state => set({ _hasHydrated: state }),
 
       // 编辑计划名称
       startEditingPlan: (planId, currentName) =>
@@ -83,10 +83,10 @@ export const usePositionStore = create<PositionStore>()(
         const { editingPlanId, editingPlanName, plans } = get()
         if (editingPlanId && editingPlanName.trim()) {
           set({
-            plans: plans.map((p) =>
+            plans: plans.map(p =>
               p.id === editingPlanId
                 ? { ...p, name: editingPlanName.trim() }
-                : p
+                : p,
             ),
             editingPlanId: null,
             editingPlanName: '',
@@ -99,21 +99,21 @@ export const usePositionStore = create<PositionStore>()(
       cancelEditingPlan: () =>
         set({ editingPlanId: null, editingPlanName: '' }),
 
-      setEditingPlanName: (name) => set({ editingPlanName: name }),
+      setEditingPlanName: name => set({ editingPlanName: name }),
 
       // 计划操作
-      addPlan: (plan) => {
-        set((state) => ({
+      addPlan: plan => {
+        set(state => ({
           plans: [...state.plans, plan],
           activePlanId: plan.id,
         }))
       },
 
-      deletePlan: (planId) => {
+      deletePlan: planId => {
         const { plans, activePlanId } = get()
         if (plans.length <= 1) return
 
-        const newPlans = plans.filter((p) => p.id !== planId)
+        const newPlans = plans.filter(p => p.id !== planId)
         set({
           plans: newPlans,
           activePlanId: activePlanId === planId ? newPlans[0].id : activePlanId,
@@ -121,53 +121,53 @@ export const usePositionStore = create<PositionStore>()(
       },
 
       updatePlanConfig: (planId, config) => {
-        set((state) => ({
-          plans: state.plans.map((p) =>
-            p.id === planId ? { ...p, config: { ...p.config, ...config } } : p
+        set(state => ({
+          plans: state.plans.map(p =>
+            p.id === planId ? { ...p, config: { ...p.config, ...config } } : p,
           ),
         }))
       },
 
       // 订单操作
       addOrder: (planId, order) => {
-        set((state) => ({
-          plans: state.plans.map((p) =>
-            p.id === planId ? { ...p, orders: [...p.orders, order] } : p
+        set(state => ({
+          plans: state.plans.map(p =>
+            p.id === planId ? { ...p, orders: [...p.orders, order] } : p,
           ),
         }))
       },
 
       updateOrder: (planId, orderId, updates) => {
-        set((state) => ({
-          plans: state.plans.map((p) =>
+        set(state => ({
+          plans: state.plans.map(p =>
             p.id === planId
               ? {
                   ...p,
-                  orders: p.orders.map((o) =>
-                    o.id === orderId ? { ...o, ...updates } : o
+                  orders: p.orders.map(o =>
+                    o.id === orderId ? { ...o, ...updates } : o,
                   ),
                 }
-              : p
+              : p,
           ),
         }))
       },
 
       deleteOrder: (planId, orderId) => {
-        set((state) => ({
-          plans: state.plans.map((p) =>
+        set(state => ({
+          plans: state.plans.map(p =>
             p.id === planId
-              ? { ...p, orders: p.orders.filter((o) => o.id !== orderId) }
-              : p
+              ? { ...p, orders: p.orders.filter(o => o.id !== orderId) }
+              : p,
           ),
         }))
       },
 
       duplicateOrder: (planId, orderId) => {
         const { plans } = get()
-        const plan = plans.find((p) => p.id === planId)
+        const plan = plans.find(p => p.id === planId)
         if (!plan) return
 
-        const order = plan.orders.find((o) => o.id === orderId)
+        const order = plan.orders.find(o => o.id === orderId)
         if (!order) return
 
         const newOrder: OrderEntry = {
@@ -175,9 +175,9 @@ export const usePositionStore = create<PositionStore>()(
           id: Date.now().toString(),
         }
 
-        set((state) => ({
-          plans: state.plans.map((p) =>
-            p.id === planId ? { ...p, orders: [...p.orders, newOrder] } : p
+        set(state => ({
+          plans: state.plans.map(p =>
+            p.id === planId ? { ...p, orders: [...p.orders, newOrder] } : p,
           ),
         }))
       },
@@ -185,9 +185,9 @@ export const usePositionStore = create<PositionStore>()(
     {
       name: 'position-calculator-storage', // localStorage key
       version: 1, // 版本号，用于迁移
-      onRehydrateStorage: () => (state) => {
+      onRehydrateStorage: () => state => {
         state?.setHasHydrated(true)
       },
-    }
-  )
+    },
+  ),
 )

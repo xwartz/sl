@@ -1,4 +1,4 @@
-import { useState, useEffect, type InputHTMLAttributes } from 'react'
+import { type InputHTMLAttributes, useEffect, useState } from 'react'
 
 interface NumberInputProps
   extends Omit<
@@ -17,20 +17,23 @@ export default function NumberInput({
   ...props
 }: NumberInputProps) {
   const [localValue, setLocalValue] = useState(
-    value !== undefined ? String(value) : ''
+    value !== undefined ? String(value) : '',
   )
 
   useEffect(() => {
-    // Only sync from parent if the numeric value actually changed
-    const localNum = parseFloat(localValue)
-    if (value !== undefined) {
-      if (!isNaN(localNum) && localNum === value) return
-      setLocalValue(String(value))
-    } else {
-      if (localValue === '') return
-      setLocalValue('')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLocalValue(currentValue => {
+      const currentNumber = Number.parseFloat(currentValue)
+
+      if (value !== undefined) {
+        if (!Number.isNaN(currentNumber) && currentNumber === value) {
+          return currentValue
+        }
+
+        return String(value)
+      }
+
+      return currentValue === '' ? currentValue : ''
+    })
   }, [value])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,11 +47,18 @@ export default function NumberInput({
       return
     }
 
-    const num = parseFloat(str)
-    if (!isNaN(num)) {
+    const num = Number.parseFloat(str)
+    if (!Number.isNaN(num)) {
       onChange(num)
     }
   }
 
-  return <input type="number" value={localValue} onChange={handleChange} {...props} />
+  return (
+    <input
+      type="number"
+      value={localValue}
+      onChange={handleChange}
+      {...props}
+    />
+  )
 }

@@ -26,8 +26,8 @@ export default function SummaryCard({
         {icon} {title}
       </div>
       <div className="space-y-3">
-        {items.map((item, index) => (
-          <div key={index} className="flex justify-between items-baseline">
+        {items.map(item => (
+          <div key={item.label} className="flex justify-between items-baseline">
             <span className="text-xs text-muted">{item.label}</span>
             <span
               className={

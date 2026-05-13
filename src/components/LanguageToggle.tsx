@@ -1,6 +1,6 @@
-import React from 'react'
 import { Languages } from 'lucide-react'
-import { useI18n, type Language } from '../lib/i18n'
+import type React from 'react'
+import { type Language, useI18n } from '../lib/i18n'
 import IconButton from './IconButton'
 
 const LanguageToggle: React.FC = () => {
