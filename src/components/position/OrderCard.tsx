@@ -51,7 +51,7 @@ export default function OrderCard({
           <button
             type="button"
             onClick={() => onDuplicateOrder(order.id)}
-            className="p-2 hover:bg-card rounded-lg transition-colors"
+            className="interactive-row rounded-lg p-2 hover:bg-card"
             title={t('position.duplicate')}
           >
             <Copy size={16} className="text-muted" />
@@ -59,7 +59,7 @@ export default function OrderCard({
           <button
             type="button"
             onClick={() => onDeleteOrder(order.id)}
-            className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
+            className="interactive-row rounded-lg p-2 hover:bg-danger/10"
             title={t('position.delete')}
           >
             <Trash2 size={16} className="text-danger" />

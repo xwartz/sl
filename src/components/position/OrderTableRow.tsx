@@ -135,7 +135,7 @@ export default function OrderTableRow({
           <button
             type="button"
             onClick={() => onDuplicateOrder(order.id)}
-            className="p-2 hover:bg-panel rounded-lg transition-colors"
+            className="interactive-row rounded-lg p-2 hover:bg-panel"
             title={t('position.duplicate')}
           >
             <Copy size={16} className="text-muted hover:text-text" />
@@ -143,7 +143,7 @@ export default function OrderTableRow({
           <button
             type="button"
             onClick={() => onDeleteOrder(order.id)}
-            className="p-2 hover:bg-danger/10 rounded-lg transition-colors"
+            className="interactive-row rounded-lg p-2 hover:bg-danger/10"
             title={t('position.delete')}
           >
             <Trash2 size={16} className="text-danger" />

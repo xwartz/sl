@@ -27,7 +27,7 @@ const IconButton: React.FC<IconButtonProps> = ({
     <button
       onClick={handleClick}
       disabled={disabled}
-      className={`btn-secondary h-10 w-10 flex items-center justify-center rounded-lg transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`btn-secondary h-10 w-10 flex items-center justify-center rounded-lg transition-all hover:-translate-y-px hover:scale-[1.04] disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       aria-label={ariaLabel}
       type="button"
     >

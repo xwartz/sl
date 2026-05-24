@@ -60,7 +60,7 @@ export default function PlanTabs({
                 <button
                   type="button"
                   onClick={() => onActivePlanChange(plan.id)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap ${
+                  className={`interactive-row whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-all ${
                     activePlanId === plan.id
                       ? 'bg-card shadow-sm text-text'
                       : 'text-muted hover:text-text'
@@ -73,7 +73,7 @@ export default function PlanTabs({
                     <button
                       type="button"
                       onClick={() => onStartEditingPlan(plan.id, plan.name)}
-                      className="p-1.5 hover:bg-panel rounded transition-colors"
+                      className="interactive-row rounded p-1.5 hover:bg-panel"
                       title={t('position.rename')}
                     >
                       <Pencil size={14} className="text-muted" />
@@ -82,7 +82,7 @@ export default function PlanTabs({
                       <button
                         type="button"
                         onClick={() => onDeletePlan(plan.id)}
-                        className="p-1.5 hover:bg-danger/10 rounded transition-colors"
+                        className="interactive-row rounded p-1.5 hover:bg-danger/10"
                         title={t('position.delete')}
                       >
                         <Trash2 size={14} className="text-danger" />
@@ -98,7 +98,7 @@ export default function PlanTabs({
       <button
         type="button"
         onClick={onAddPlan}
-        className="px-4 py-2 border border-border-var rounded-lg hover:bg-panel transition-colors text-sm text-muted hover:text-text"
+        className="interactive-row rounded-lg border border-border-var px-4 py-2 text-sm text-muted hover:bg-panel hover:text-text"
       >
         + {t('position.new.tab')}
       </button>

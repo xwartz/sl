@@ -120,7 +120,7 @@ export default function OrderList({
         <button
           type="button"
           onClick={onAddOrder}
-          className="w-full py-3 border-2 border-dashed border-border-var rounded-lg hover:border-accent hover:bg-panel/50 transition-all text-sm text-muted hover:text-text flex items-center justify-center gap-2"
+          className="interactive-row flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-var py-3 text-sm text-muted hover:border-accent hover:bg-panel/50 hover:text-text"
         >
           <Plus size={16} />
           {t('position.add.order.row')}

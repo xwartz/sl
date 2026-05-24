@@ -26,9 +26,7 @@ export default function ImportNotification() {
     <div className="fixed top-20 right-4 z-50 animate-slide-in">
       <div
         className={`flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg backdrop-blur-sm ${
-          isSuccess
-            ? 'border-green-500/20 bg-green-50/90 text-green-900 dark:bg-green-950/90 dark:text-green-100'
-            : 'border-red-500/20 bg-red-50/90 text-red-900 dark:bg-red-950/90 dark:text-red-100'
+          isSuccess ? 'surface-success' : 'surface-danger'
         }`}
       >
         {isSuccess ? (
@@ -47,7 +45,8 @@ export default function ImportNotification() {
         <button
           type="button"
           onClick={() => setVisible(false)}
-          className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity"
+          aria-label={t('share.close')}
+          className="interactive-row flex-shrink-0 rounded-md p-1 opacity-60 hover:opacity-100"
         >
           <X size={16} />
         </button>

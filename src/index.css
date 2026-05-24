@@ -7,6 +7,7 @@
   --color-card: #ffffff;
   --color-panel: #f5f5f5;
   --color-text: #171717;
+  --color-text-secondary: #525252;
   --color-muted: #737373;
   --color-border: #e5e5e5;
   --color-accent: #171717;
@@ -21,57 +22,45 @@
 /* Design System Variables */
 :root {
   /* Backgrounds */
-  --bg: #ffffff;
-  --card-bg: #ffffff;
-  --panel-bg: #f5f5f5;
+  --bg: var(--color-app-bg);
+  --card-bg: var(--color-card);
+  --panel-bg: var(--color-panel);
+
   /* Text */
-  --text: #171717;
-  --text-secondary: #525252;
-  --muted: #737373;
+  --text: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --muted: var(--color-muted);
 
   /* Borders */
-  --border: #e5e5e5;
+  --border: var(--color-border);
+
   /* Accent - Primary Action Color */
-  --accent: #171717;
-  --accent-hover: #404040;
-  --accent-text: #ffffff;
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-text: var(--color-accent-text);
+
   /* Status Colors */
-  --danger: #dc2626;
-  --warning: #ea580c;
-  --success: #16a34a;
-  --info: #0284c7;
+  --danger: var(--color-danger);
+  --warning: var(--color-warning);
+  --success: var(--color-success);
+  --info: var(--color-info);
+
+  /* Shared effects */
+  --focus-ring: color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 10px 18px -12px rgb(0 0 0 / 0.2), 0 6px 10px -8px rgb(0 0 0 / 0.18);
+  --scrim: rgb(23 23 23 / 0.55);
+  --qr-canvas: #ffffff;
 }
 
 .dark {
   /* Backgrounds */
-  --bg: #0a0a0a;
-  --card-bg: #171717;
-  --panel-bg: #262626;
-
-  /* Text */
-  --text: #fafafa;
-  --text-secondary: #d4d4d4;
-  --muted: #a3a3a3;
-
-  /* Borders */
-  --border: #404040;
-
-  /* Accent - Bright in dark mode for visibility */
-  --accent: #fafafa;
-  --accent-hover: #ffffff;
-  --accent-text: #0a0a0a;
-
-  /* Status Colors - Brighter in dark mode */
-  --danger: #ef4444;
-  --warning: #f97316;
-  --success: #22c55e;
-  --info: #06b6d4;
-
-  /* Update theme colors for dark mode */
   --color-app-bg: #0a0a0a;
   --color-card: #171717;
   --color-panel: #262626;
   --color-text: #fafafa;
+  --color-text-secondary: #d4d4d4;
   --color-muted: #a3a3a3;
   --color-border: #404040;
   --color-accent: #fafafa;
@@ -81,6 +70,7 @@
   --color-warning: #f97316;
   --color-success: #22c55e;
   --color-info: #06b6d4;
+  --scrim: rgb(10 10 10 / 0.72);
 }
 
 /* Base Styles */
@@ -100,6 +90,14 @@ body {
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   line-height: 1.6;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+a[href],
+label[for],
+summary {
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -174,6 +172,10 @@ body {
   color: var(--muted);
 }
 
+.text-secondary {
+  color: var(--text-secondary);
+}
+
 .border-border-var {
   border-color: var(--border);
 }
@@ -226,11 +228,42 @@ body {
 }
 
 .bg-danger\/10 {
-  background-color: rgb(220 38 38 / 0.1);
+  background-color: color-mix(in srgb, var(--danger) 12%, transparent);
 }
 
-.dark .bg-danger\/10 {
-  background-color: rgb(239 68 68 / 0.1);
+.surface-success {
+  border-color: color-mix(in srgb, var(--success) 18%, transparent);
+  background-color: color-mix(in srgb, var(--success) 10%, var(--card-bg));
+  color: color-mix(in srgb, var(--success) 72%, var(--text));
+}
+
+.surface-danger {
+  border-color: color-mix(in srgb, var(--danger) 18%, transparent);
+  background-color: color-mix(in srgb, var(--danger) 10%, var(--card-bg));
+  color: color-mix(in srgb, var(--danger) 72%, var(--text));
+}
+
+.bg-scrim {
+  background-color: var(--scrim);
+}
+
+.bg-qr-canvas {
+  background-color: var(--qr-canvas);
+}
+
+.interactive-row {
+  transition:
+    background-color 150ms ease-out,
+    border-color 150ms ease-out,
+    color 150ms ease-out,
+    box-shadow 150ms ease-out,
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
+}
+
+.interactive-row:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Ring colors for focus states */
@@ -243,14 +276,12 @@ body {
   background-color: var(--accent);
   color: var(--accent-text);
   transition: all 150ms ease-out;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
   background-color: var(--accent-hover);
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
@@ -264,15 +295,13 @@ body {
   color: var(--text);
   border: 1px solid var(--border);
   transition: all 150ms ease-out;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--card-bg);
   border-color: var(--accent);
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
@@ -300,7 +329,7 @@ input[type="number"]:focus,
 select:focus {
   border-color: var(--accent);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(var(--accent) / 0.1);
+  box-shadow: 0 0 0 2px var(--focus-ring);
 }
 
 .dark input[type="text"],
@@ -408,7 +437,15 @@ button:active:not(:disabled) {
 button,
 input,
 select,
+textarea,
 .btn-primary,
-.btn-secondary {
-  transition: all 150ms ease-out;
+.btn-secondary,
+.interactive-row {
+  transition:
+    background-color 150ms ease-out,
+    border-color 150ms ease-out,
+    color 150ms ease-out,
+    box-shadow 150ms ease-out,
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
 }

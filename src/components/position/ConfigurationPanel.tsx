@@ -32,7 +32,7 @@ function SegmentedControl<T extends string>({
             key={opt.value}
             type="button"
             onClick={() => onChange(opt.value)}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all whitespace-nowrap ${
+            className={`interactive-row whitespace-nowrap rounded-md px-4 py-1.5 text-sm font-medium transition-all ${
               isActive ? activeClass : 'text-muted hover:text-text'
             }`}
           >
@@ -102,12 +102,12 @@ export default function ConfigurationPanel({
               {
                 value: 'long',
                 label: t('position.long'),
-                activeClass: 'bg-success text-white shadow-sm',
+                activeClass: 'bg-success text-accent-text shadow-sm',
               },
               {
                 value: 'short',
                 label: t('position.short'),
-                activeClass: 'bg-danger text-white shadow-sm',
+                activeClass: 'bg-danger text-accent-text shadow-sm',
               },
             ]}
             onChange={v => onConfigChange({ direction: v })}
@@ -192,7 +192,7 @@ export default function ConfigurationPanel({
                     key={preset}
                     type="button"
                     onClick={() => onConfigChange({ leverage: preset })}
-                    className={`px-2 py-1.5 text-xs font-medium rounded-md transition-all ${
+                    className={`interactive-row rounded-md px-2 py-1.5 text-xs font-medium transition-all ${
                       config.leverage === preset
                         ? 'bg-accent text-accent-text'
                         : 'text-muted hover:text-text hover:bg-panel'
@@ -206,7 +206,10 @@ export default function ConfigurationPanel({
                   <button
                     type="button"
                     onClick={() => setShowMore(!showMore)}
-                    className="px-2 py-1.5 text-xs font-medium rounded-md text-muted hover:text-text hover:bg-panel transition-all flex items-center gap-0.5"
+                    aria-expanded={showMore}
+                    aria-label={t('position.leverage.more')}
+                    title={t('position.leverage.more')}
+                    className="interactive-row flex items-center gap-0.5 rounded-md px-2 py-1.5 text-xs font-medium text-muted hover:bg-panel hover:text-text transition-all"
                   >
                     <ChevronDown
                       size={13}
@@ -224,7 +227,7 @@ export default function ConfigurationPanel({
                             onConfigChange({ leverage: preset })
                             setShowMore(false)
                           }}
-                          className={`w-full px-3 py-1.5 text-xs text-left hover:bg-panel transition-colors ${
+                          className={`interactive-row w-full px-3 py-1.5 text-left text-xs hover:bg-panel ${
                             config.leverage === preset
                               ? 'text-accent font-bold'
                               : 'text-text'

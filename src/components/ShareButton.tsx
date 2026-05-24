@@ -138,11 +138,11 @@ const ShareButton: React.FC = () => {
 
         {/* Dropdown Menu */}
         {isOpen && (
-          <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border-var rounded-lg shadow-lg z-50 py-1">
+          <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border-var bg-card py-1 shadow-lg z-50 slide-in-from-top duration-200">
             <button
               type="button"
               onClick={handleCopy}
-              className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
+              className="interactive-row flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-text hover:bg-panel"
             >
               <Link size={15} className="text-muted" />
               {t('share.copy.link')}
@@ -150,7 +150,7 @@ const ShareButton: React.FC = () => {
             <button
               type="button"
               onClick={handleQR}
-              className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
+              className="interactive-row flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-text hover:bg-panel"
             >
               <QrCode size={15} className="text-muted" />
               {t('share.qr.code')}
@@ -159,7 +159,7 @@ const ShareButton: React.FC = () => {
             <button
               type="button"
               onClick={handleExport}
-              className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
+              className="interactive-row flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-text hover:bg-panel"
             >
               <Download size={15} className="text-muted" />
               {t('share.export')}
@@ -167,7 +167,7 @@ const ShareButton: React.FC = () => {
             <button
               type="button"
               onClick={handleImport}
-              className="w-full px-4 py-2.5 text-sm text-text hover:bg-panel text-left flex items-center gap-3 transition-colors"
+              className="interactive-row flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-text hover:bg-panel"
             >
               <Upload size={15} className="text-muted" />
               {t('share.import')}
@@ -179,10 +179,10 @@ const ShareButton: React.FC = () => {
       {/* QR Code Modal - Rendered via Portal */}
       {showQR &&
         createPortal(
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 overflow-y-auto">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto p-4 fade-in duration-200">
             <button
               type="button"
-              className="absolute inset-0 border-0 bg-black/50 p-0"
+              className="absolute inset-0 border-0 bg-scrim p-0"
               aria-label={t('share.close')}
               onClick={() => setShowQR(false)}
             />
@@ -190,7 +190,7 @@ const ShareButton: React.FC = () => {
               role="dialog"
               aria-modal="true"
               aria-labelledby="share-qr-title"
-              className="relative bg-card rounded-xl p-6 max-w-sm w-full shadow-2xl border border-border-var my-auto max-h-[90vh] overflow-y-auto"
+              className="relative my-auto max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-xl border border-border-var bg-card p-6 shadow-2xl scale-in duration-200"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3
@@ -203,7 +203,7 @@ const ShareButton: React.FC = () => {
                   type="button"
                   onClick={() => setShowQR(false)}
                   aria-label={t('share.close')}
-                  className="p-1.5 hover:bg-panel rounded-lg transition-colors"
+                  className="interactive-row rounded-lg p-1.5 hover:bg-panel"
                 >
                   <X size={18} className="text-muted" />
                 </button>
@@ -219,10 +219,10 @@ const ShareButton: React.FC = () => {
                   </p>
                 </div>
               ) : (
-                <div className="flex justify-center p-4 bg-white rounded-lg">
+                <div className="flex justify-center rounded-lg bg-qr-canvas p-4">
                   <img
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`}
-                    alt="QR Code"
+                    alt={t('share.qr.code')}
                     className="w-48 h-48"
                   />
                 </div>
@@ -239,7 +239,7 @@ const ShareButton: React.FC = () => {
                   setCopyStatus('success')
                   setShowQR(false)
                 }}
-                className="w-full mt-4 py-2.5 rounded-lg bg-accent text-accent-text text-sm font-medium hover:opacity-90 transition-opacity"
+                className="btn-primary mt-4 w-full rounded-lg py-2.5 text-sm font-medium"
               >
                 {t('share.copy.link')}
               </button>
